@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import "./auth.scss";
+import { getUsers } from "shared/api/service";
 
 export const Auth = () => {
   const isReg = true;
@@ -9,16 +10,16 @@ export const Auth = () => {
   useEffect(() => {
     fetch("http://localhost:4000/users", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        firstname: "qwe",
-        age: 1,
+        login: "log1",
+        password: "pas1",
+        email: "em1",
       }),
     }).then(() => {
-      fetch("http://localhost:4000/users", {
-        method: "GET",
-      })
-        .then((data) => data.json())
-        .then((data) => console.log(data));
+      getUsers.then((res) => {
+        console.log(res);
+      });
     });
   }, []);
 
