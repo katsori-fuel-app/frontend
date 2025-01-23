@@ -1,47 +1,76 @@
 "use client";
 
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import "./auth.scss";
-import { getUsers } from "shared/api/service";
+import { useRouter } from "next/navigation";
 
 export const Auth = () => {
   const isReg = true;
+  const router = useRouter()
 
-  useEffect(() => {
+  const [userCreds, setUserCreds] = useState({
+    email: '',
+    login: '',
+    passowrd: '',
+  });
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>, type: any) =>  {
+    if (type === 'email')  {
+        return setUserCreds(prev => ({
+            ...prev,
+            email: e.target.value
+        }))
+    }
+
+    if (type === 'login')  {
+        return setUserCreds(prev => ({
+            ...prev,
+            login: e.target.value
+        }))
+    }
+
+
+    if (type === 'password')  {
+        return setUserCreds(prev => ({
+            ...prev,
+            password: e.target.value
+        }))
+    }
+  }
+
+  const onClick = () => {
     fetch("http://localhost:4000/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        login: "log1",
-        password: "pas1",
-        email: "em1",
-      }),
-    }).then(() => {
-      getUsers.then((res) => {
-        console.log(res);
-      });
-    });
-  }, []);
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userCreds),
+      })
+
+      router.push('/profile')
+  }
 
   return (
     <div className="auth">
       {isReg ? (
         <div className="auth__block">
-          <p className="auth__block__title">Регистрация</p>
+            <p className="auth__block__title">Регистрация</p>
 
-          <div className="auth__block__input-wrapper">
-            <input className="input" placeholder="Укажите ваше имя" />
-          </div>
+            <div className="auth__block__input-wrapper">
+                <input className="input" placeholder="Укажите ваш email" onChange={(e) => onChange(e, 'email')} />
+            </div>
 
-          <div className="auth__block__input-wrapper">
-            <input className="input" placeholder="Придумайте пароль" />
-          </div>
+            <div className="auth__block__input-wrapper">
+             <input className="input" placeholder="Придумайте логин" onChange={(e) => onChange(e, 'login')} />
+            </div>
 
-          <div className="auth__block__input-wrapper">
-            <input className="input" placeholder="Подтвердите пароль" />
-          </div>
+            <div className="auth__block__input-wrapper">
+                <input className="input" placeholder="Придумайте пароль" onChange={(e) => onChange(e, 'password')} />
+            </div>
 
-          <button className="button">Зарегистрироваться</button>
+            <div className="auth__block__input-wrapper">
+                <input className="input" placeholder="Подтвердите пароль" />
+            </div>
+
+            <button className="button" onClick={onClick}>Зарегистрироваться</button>
         </div>
       ) : (
         <div className="auth__block">
