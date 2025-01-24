@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  devIndicators: {
+    buildActivity: false, // Отключает индикатор активности сборки
+  },
+  productionBrowserSourceMaps: false, // Отключает Source Maps для браузера
 };
 
 export default nextConfig;
