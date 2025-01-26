@@ -1,23 +1,28 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getUsers } from "shared/api/service";
+import { UserDto } from "shared/api/dto";
+import { userService } from "shared/api/services";
 
-export default async function Profile() {
-    const [user, setUser] = useState()
-    
+export default function Profile() {
+  const [user, setUser] = useState<UserDto>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getUsers.then((res) => {
-        console.log(res.data.at(-1));
-      });
-
+    userService
+      .getAllUser()
+      .then((res) => {
+        setUser(res.data[0]);
+      })
+      .finally(() => setLoading(false));
   }, []);
-    return (
-        <div>
-            <Link href={`/history`}>История</Link>
-            <h1>привет {}</h1>
-        </div>
-    )
-};
+
+  if (loading) return <h1>Loading...</h1>;
+  if (!user) return <h1>no user...</h1>;
+
+  return (
+    <div>
+      <h1>привет, {user.email}</h1>
+    </div>
+  );
+}

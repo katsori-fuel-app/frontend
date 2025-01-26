@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const request = axios.create({
+export const instance = axios.create({
   baseURL: "http://localhost:4000/",
   headers: {
     "Content-Type": "application/json",
   },
 });
-
-export const getUsers = request.get("users");
