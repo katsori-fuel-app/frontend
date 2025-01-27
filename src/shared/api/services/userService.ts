@@ -1,6 +1,6 @@
 import { instance } from "..";
-import { UserDto } from "../dto";
+import { User } from "../types";
 
 export const userService = {
-  getAllUser: () => instance.get<UserDto[]>("users"),
+  getAllUser: () => instance.get<User[]>("users"),
 };
