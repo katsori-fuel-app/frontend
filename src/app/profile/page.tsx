@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { UserDto } from "shared/api/dto";
 import { userService } from "shared/api/services";
+import { User } from "shared/api/types";
 
 export default function Profile() {
-  const [user, setUser] = useState<UserDto>();
+  const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,11 +18,12 @@ export default function Profile() {
   }, []);
 
   if (loading) return <h1>Loading...</h1>;
+
   if (!user) return <h1>no user...</h1>;
 
   return (
     <div>
-      <h1>привет, {user.email}</h1>
+      <h1>привет, {user.login}</h1>
     </div>
   );
 }
