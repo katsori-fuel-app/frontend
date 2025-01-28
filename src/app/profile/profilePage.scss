@@ -1,0 +1,13 @@
+.profile-page {
+    display: flex;
+    gap: 12px;
+    margin: 20px auto;
+    width: 1000px;
+
+    &__fields {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-self: center;
+    }
+}
