@@ -3,6 +3,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import "./auth.scss";
 import { useRouter } from "next/navigation";
+import { userService } from "shared/api/services";
 
 export const Auth = () => {
   const isReg = true;
@@ -11,7 +12,7 @@ export const Auth = () => {
   const [userCreds, setUserCreds] = useState({
     email: '',
     login: '',
-    passowrd: '',
+    password: '',
   });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>, type: any) =>  {
@@ -39,14 +40,10 @@ export const Auth = () => {
   }
 
   const onClick = () => {
-    fetch("http://localhost:4000/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userCreds),
-      })
-
-      router.push('/profile')
-  }
+    userService.createUser(userCreds).then(() => {
+      router.push("/profile");
+    });
+  };
 
   return (
     <div className="auth">
