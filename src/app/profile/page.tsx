@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { userService } from 'shared/api/services';
+import './profilePage.scss';
+import { AvatarOfMe } from '../../../public/img/avatar';
 
 export default function Profile() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,7 +14,7 @@ export default function Profile() {
         userService
             .getAllUser()
             .then((res) => {
-                if (res) setUser(res.data[0]);
+                setUser(res.data[0]);
             })
             .finally(() => setLoading(false));
     }, []);
@@ -21,9 +23,21 @@ export default function Profile() {
 
     if (!user) return <h1>no user...</h1>;
 
+    const createdUserDate = new Date(user.createdAt).toISOString();
+    const updatedUserDate = new Date(user.updatedAt).toISOString();
+
     return (
-        <div>
-            <h1>привет, {user.login}</h1>
+        <div className="profile-page">
+            <div className="image-wrapper">
+                <AvatarOfMe />
+            </div>
+
+            <div className="profile-page__fields">
+                <p>login: {user.login}</p>
+                <p>email: {user.email}</p>
+                <p>дата создания профиля: {createdUserDate}</p>
+                <p>последннее обновление было: {updatedUserDate}</p>
+            </div>
         </div>
     );
 }
