@@ -1,5 +1,5 @@
-import { Auth } from "feature/auth";
+import { Auth } from 'feature/auth';
 
 export default async function Page() {
-  return <Auth />;
+    return <Auth />;
 }

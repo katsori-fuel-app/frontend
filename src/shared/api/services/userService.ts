@@ -1,8 +1,8 @@
-import { instance } from "..";
-import { User } from "../types";
+import { instance } from '..';
+import { UserDto } from '../dto';
 
 export const userService = {
-  getAllUser: () => instance.get<UserDto[]>("users"),
+    getAllUser: () => instance.get<UserDto[]>('users'),
 
-  createUser: (user: UserDto) => instance.post<UserDto[]>("users", user),
+    createUser: (user: UserDto) => instance.post<UserDto[]>('users', user),
 };
