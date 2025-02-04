@@ -1,2 +1,2 @@
-export { Select } from "./Select";
-export type { Arg } from "./type";
+export { Select } from './Select';
+export type { Arg } from './type';

@@ -1,5 +1,5 @@
-import Image from "next/image";
-import "./image.scss";
+import Image from 'next/image';
+import './image.scss';
 
 export function AvatarOfMe() {
     return (

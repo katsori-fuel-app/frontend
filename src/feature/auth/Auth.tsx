@@ -1,82 +1,101 @@
-"use client";
+'use client';
 
-import { ChangeEvent, useEffect, useState } from "react";
-import "./auth.scss";
-import { useRouter } from "next/navigation";
-import { userService } from "shared/api/services";
+import { ChangeEvent, useState } from 'react';
+import './auth.scss';
+import { useRouter } from 'next/navigation';
+import { userService } from 'shared/api/services';
 
 export const Auth = () => {
-  const isReg = true;
-  const router = useRouter()
+    const isReg = true;
+    const router = useRouter();
 
-  const [userCreds, setUserCreds] = useState({
-    email: '',
-    login: '',
-    password: '',
-  });
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>, type: any) =>  {
-    if (type === 'email')  {
-        return setUserCreds(prev => ({
-            ...prev,
-            email: e.target.value
-        }))
-    }
-
-    if (type === 'login')  {
-        return setUserCreds(prev => ({
-            ...prev,
-            login: e.target.value
-        }))
-    }
-
-
-    if (type === 'password')  {
-        return setUserCreds(prev => ({
-            ...prev,
-            password: e.target.value
-        }))
-    }
-  }
-
-  const onClick = () => {
-    userService.createUser(userCreds).then(() => {
-      router.push("/profile");
+    const [userCreds, setUserCreds] = useState({
+        email: '',
+        login: '',
+        password: '',
     });
-  };
 
-  return (
-    <div className="auth">
-      {isReg ? (
-        <div className="auth__block">
-            <p className="auth__block__title">Регистрация</p>
+    const onChange = (
+        e: ChangeEvent<HTMLInputElement>,
+        type: 'email' | 'login' | 'password'
+    ) => {
+        if (type === 'email') {
+            return setUserCreds((prev) => ({
+                ...prev,
+                email: e.target.value,
+            }));
+        }
 
-            <div className="auth__block__input-wrapper">
-                <input className="input" placeholder="Укажите ваш email" onChange={(e) => onChange(e, 'email')} />
-            </div>
+        if (type === 'login') {
+            return setUserCreds((prev) => ({
+                ...prev,
+                login: e.target.value,
+            }));
+        }
 
-            <div className="auth__block__input-wrapper">
-             <input className="input" placeholder="Придумайте логин" onChange={(e) => onChange(e, 'login')} />
-            </div>
+        if (type === 'password') {
+            return setUserCreds((prev) => ({
+                ...prev,
+                password: e.target.value,
+            }));
+        }
+    };
 
-            <div className="auth__block__input-wrapper">
-                <input className="input" placeholder="Придумайте пароль" onChange={(e) => onChange(e, 'password')} />
-            </div>
+    const onClick = () => {
+        userService.createUser(userCreds).then(() => {
+            router.push('/profile');
+        });
+    };
 
-            <div className="auth__block__input-wrapper">
-                <input className="input" placeholder="Подтвердите пароль" />
-            </div>
+    return (
+        <div className="auth">
+            {isReg ? (
+                <div className="auth__block">
+                    <p className="auth__block__title">Регистрация</p>
 
-            <button className="button" onClick={onClick}>Зарегистрироваться</button>
+                    <div className="auth__block__input-wrapper">
+                        <input
+                            className="input"
+                            placeholder="Укажите ваш email"
+                            onChange={(e) => onChange(e, 'email')}
+                        />
+                    </div>
+
+                    <div className="auth__block__input-wrapper">
+                        <input
+                            className="input"
+                            placeholder="Придумайте логин"
+                            onChange={(e) => onChange(e, 'login')}
+                        />
+                    </div>
+
+                    <div className="auth__block__input-wrapper">
+                        <input
+                            className="input"
+                            placeholder="Придумайте пароль"
+                            onChange={(e) => onChange(e, 'password')}
+                        />
+                    </div>
+
+                    <div className="auth__block__input-wrapper">
+                        <input
+                            className="input"
+                            placeholder="Подтвердите пароль"
+                        />
+                    </div>
+
+                    <button className="button" onClick={onClick}>
+                        Зарегистрироваться
+                    </button>
+                </div>
+            ) : (
+                <div className="auth__block">
+                    <div>Авторизация</div>
+
+                    <input placeholder="Введите имя" />
+                    <input placeholder="Введите пароль" />
+                </div>
+            )}
         </div>
-      ) : (
-        <div className="auth__block">
-          <div>Авторизация</div>
-
-          <input placeholder="Введите имя" />
-          <input placeholder="Введите пароль" />
-        </div>
-      )}
-    </div>
-  );
+    );
 };

@@ -1,14 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { userService } from "shared/api/services";
-import { User } from "shared/api/types";
-import "./profilePage.scss";
-import Image from "next/image";
-import { AvatarOfMe } from "../../../public/img/avatar";
+import { useEffect, useState } from 'react';
+import { userService } from 'shared/api/services';
+import './profilePage.scss';
+import { AvatarOfMe } from '../../../public/img/avatar';
 
 export default function Profile() {
-    const [user, setUser] = useState<User>();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [user, setUser] = useState<any>();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function RootLayout({
     children,
@@ -13,13 +13,13 @@ export default function RootLayout({
     console.log(path);
 
     const logout = () => {
-        router.push("/auth");
+        router.push('/auth');
     };
     return (
         <html lang="en">
             <body>
                 <header>
-                    {path !== "/auth" && (
+                    {path !== '/auth' && (
                         <button onClick={logout}>выйти</button>
                     )}
                 </header>
