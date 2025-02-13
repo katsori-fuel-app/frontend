@@ -4,9 +4,10 @@ import { ChangeEvent, useState } from 'react';
 import './auth.scss';
 import { useRouter } from 'next/navigation';
 import { userService } from 'shared/api/services';
+import { AxiosError, AxiosResponse } from 'axios';
 
 export const Auth = () => {
-    const isReg = true;
+    const isReg = false;
     const router = useRouter();
 
     const [userCreds, setUserCreds] = useState({
@@ -15,10 +16,7 @@ export const Auth = () => {
         password: '',
     });
 
-    const onChange = (
-        e: ChangeEvent<HTMLInputElement>,
-        type: 'email' | 'login' | 'password'
-    ) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>, type: 'email' | 'login' | 'password') => {
         if (type === 'email') {
             return setUserCreds((prev) => ({
                 ...prev,
@@ -45,6 +43,18 @@ export const Auth = () => {
         userService.createUser(userCreds).then(() => {
             router.push('/profile');
         });
+    };
+
+    const login = () => {
+        if (!userCreds.login) return;
+
+        // TODO Переделать на Find, а не Get
+        userService
+            .getUser({ login: userCreds.login })
+            .then(() => {
+                router.push(`/profile/${userCreds.login}`);
+            })
+            .catch((e: AxiosError<AxiosResponse>) => console.warn(e.response?.data));
     };
 
     return (
@@ -78,10 +88,7 @@ export const Auth = () => {
                     </div>
 
                     <div className="auth__block__input-wrapper">
-                        <input
-                            className="input"
-                            placeholder="Подтвердите пароль"
-                        />
+                        <input className="input" placeholder="Подтвердите пароль" />
                     </div>
 
                     <button className="button" onClick={onClick}>
@@ -90,10 +97,27 @@ export const Auth = () => {
                 </div>
             ) : (
                 <div className="auth__block">
-                    <div>Авторизация</div>
+                    <p className="auth__block__title">Авторизация</p>
 
-                    <input placeholder="Введите имя" />
-                    <input placeholder="Введите пароль" />
+                    <div className="auth__block__input-wrapper">
+                        <input
+                            className="input"
+                            placeholder="Логин"
+                            onChange={(e) => onChange(e, 'login')}
+                        />
+                    </div>
+
+                    <div className="auth__block__input-wrapper">
+                        <input
+                            className="input"
+                            placeholder="Пароль"
+                            onChange={(e) => onChange(e, 'password')}
+                        />
+                    </div>
+
+                    <button className="button" onClick={login}>
+                        войти
+                    </button>
                 </div>
             )}
         </div>

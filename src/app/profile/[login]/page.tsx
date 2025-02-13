@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { userService } from 'shared/api/services';
-import './profilePage.scss';
-import { AvatarOfMe } from '../../../public/img/avatar';
+import '../profilePage.scss';
+import { AvatarOfMe } from '../../../../public/img/avatar';
 
 export default function Profile() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
