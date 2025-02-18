@@ -15,6 +15,7 @@ export const Auth = () => {
         login: '',
         password: '',
     });
+    const [error, setError] = useState<string | null>(null);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>, type: 'email' | 'login' | 'password') => {
         if (type === 'email') {
@@ -54,7 +55,12 @@ export const Auth = () => {
             .then(() => {
                 router.push(`/profile/${userCreds.login}`);
             })
-            .catch((e: AxiosError<AxiosResponse>) => console.warn(e.response?.data));
+            .catch((e: AxiosError<AxiosResponse>) => {
+                if (e.status === 404) {
+                    setError(`Пользователь ${userCreds.login} не существует`);
+                }
+                console.warn(e.response?.data);
+            });
     };
 
     return (
@@ -105,6 +111,8 @@ export const Auth = () => {
                             placeholder="Логин"
                             onChange={(e) => onChange(e, 'login')}
                         />
+
+                        {error && error}
                     </div>
 
                     <div className="auth__block__input-wrapper">
