@@ -4,11 +4,35 @@ import { useEffect, useState } from 'react';
 import { userService } from 'shared/api/services';
 import '../profilePage.scss';
 import { AvatarOfMe } from '../../../../public/img/avatar';
+import { User } from 'shared/api/types';
 
 export default function Profile() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [user, setUser] = useState<any>();
+    const [user, setUser] = useState<User>();
     const [loading, setLoading] = useState(true);
+
+    const [messageList, setMessageList] = useState<string[]>([]);
+
+    const createMessage = () => {
+        setLoading(true);
+
+        const copyList = [...messageList];
+        copyList.push('newMessage');
+
+        setMessageList(copyList);
+
+        setLoading(false);
+    };
+
+    const deleteMessage = () => {
+        setLoading(true);
+
+        const copyList = [...messageList];
+        copyList.pop();
+
+        setMessageList(copyList);
+
+        setLoading(false);
+    };
 
     useEffect(() => {
         userService
@@ -37,6 +61,23 @@ export default function Profile() {
                 <p>email: {user.email}</p>
                 <p>дата создания профиля: {createdUserDate}</p>
                 <p>последннее обновление было: {updatedUserDate}</p>
+            </div>
+
+            <div>
+                <p>создание сообщений для разных users</p>
+
+                <input type="text" placeholder="введите текст" />
+                <button onClick={createMessage}>создать</button>
+                <button onClick={deleteMessage}>удалить</button>
+
+                <div>
+                    <p>Сообщения:</p>
+                    {messageList.length ? (
+                        messageList.map((message, index) => <p key={index}>{message}</p>)
+                    ) : (
+                        <p>Нет сообщений</p>
+                    )}
+                </div>
             </div>
         </div>
     );

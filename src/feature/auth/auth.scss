@@ -1,6 +1,8 @@
 @use 'styles/mixins/wrappers';
 
 .auth {
+    @include wrappers.base-shadow-wrapper;
+
     position: absolute;
     display: flex;
     align-items: center;
@@ -10,8 +12,6 @@
     border: 1px solid red;
 
     &__block {
-        @include wrappers.base-shadow-wrapper;
-
         display: flex;
         flex-direction: column;
 
