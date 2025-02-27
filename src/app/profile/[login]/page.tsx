@@ -19,7 +19,9 @@ export default function Profile() {
         copyList.push('newMessage');
 
         setMessageList(copyList);
-
+        userService.asd({ message: 'text create' }).then((res) => {
+            console.log('res: ', res);
+        });
         setLoading(false);
     };
 

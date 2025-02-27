@@ -7,7 +7,7 @@ import { userService } from 'shared/api/services';
 import { AxiosError, AxiosResponse } from 'axios';
 
 export const Auth = () => {
-    const isReg = false;
+    const isReg = true;
     const router = useRouter();
 
     const [userCreds, setUserCreds] = useState({
@@ -42,7 +42,7 @@ export const Auth = () => {
 
     const onClick = () => {
         userService.createUser(userCreds).then(() => {
-            router.push('/profile');
+            router.push(`/profile/${userCreds.login}`);
         });
     };
 
