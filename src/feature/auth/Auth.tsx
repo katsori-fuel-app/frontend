@@ -5,6 +5,7 @@ import './auth.scss';
 import { useRouter } from 'next/navigation';
 import { userService } from 'shared/api/services';
 import { AxiosError, AxiosResponse } from 'axios';
+import { Input } from 'shared/uiKit/input';
 
 export const Auth = () => {
     const isReg = true;
@@ -69,32 +70,23 @@ export const Auth = () => {
                 <div className="auth__block">
                     <p className="auth__block__title">Регистрация</p>
 
-                    <div className="auth__block__input-wrapper">
-                        <input
-                            className="input"
+                    <div className="form">
+                        <Input
                             placeholder="Укажите ваш email"
                             onChange={(e) => onChange(e, 'email')}
                         />
-                    </div>
-
-                    <div className="auth__block__input-wrapper">
-                        <input
-                            className="input"
+                        <Input
                             placeholder="Придумайте логин"
                             onChange={(e) => onChange(e, 'login')}
                         />
-                    </div>
-
-                    <div className="auth__block__input-wrapper">
-                        <input
-                            className="input"
+                        <Input
                             placeholder="Придумайте пароль"
                             onChange={(e) => onChange(e, 'password')}
                         />
-                    </div>
-
-                    <div className="auth__block__input-wrapper">
-                        <input className="input" placeholder="Подтвердите пароль" />
+                        <Input
+                            placeholder="Подтвердите пароль"
+                            onChange={(e) => onChange(e, 'password')}
+                        />
                     </div>
 
                     <button className="button" onClick={onClick}>
