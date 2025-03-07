@@ -6,9 +6,10 @@ import { useRouter } from 'next/navigation';
 import { userService } from 'shared/api/services';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Input } from 'shared/uiKit/input';
+import { Button } from 'shared/uiKit/button';
 
 export const Auth = () => {
-    const isReg = true;
+    const isReg = false;
     const router = useRouter();
 
     const [userCreds, setUserCreds] = useState({
@@ -89,35 +90,20 @@ export const Auth = () => {
                         />
                     </div>
 
-                    <button className="button" onClick={onClick}>
-                        Зарегистрироваться
-                    </button>
+                    <Button onClick={onClick} value="Зарегистрироваться" />
                 </div>
             ) : (
                 <div className="auth__block">
                     <p className="auth__block__title">Авторизация</p>
 
-                    <div className="auth__block__input-wrapper">
-                        <input
-                            className="input"
-                            placeholder="Логин"
-                            onChange={(e) => onChange(e, 'login')}
-                        />
+                    <div className="form">
+                        <Input placeholder="Логин" onChange={(e) => onChange(e, 'login')} />
+                        <Input placeholder="Пароль" onChange={(e) => onChange(e, 'password')} />
 
                         {error && error}
-                    </div>
 
-                    <div className="auth__block__input-wrapper">
-                        <input
-                            className="input"
-                            placeholder="Пароль"
-                            onChange={(e) => onChange(e, 'password')}
-                        />
+                        <Button onClick={login} value="Войти" />
                     </div>
-
-                    <button className="button" onClick={login}>
-                        войти
-                    </button>
                 </div>
             )}
         </div>
