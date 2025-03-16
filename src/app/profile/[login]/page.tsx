@@ -10,17 +10,21 @@ export default function Profile() {
     const [user, setUser] = useState<User>();
     const [loading, setLoading] = useState(true);
 
-    const [messageList, setMessageList] = useState<string[]>([]);
+    const [messageList, setMessageList] = useState<{ message: string }[]>([]);
 
     const createMessage = () => {
         setLoading(true);
 
         const copyList = [...messageList];
-        copyList.push('newMessage');
+        copyList.push({ message: 'newMessage' });
 
         setMessageList(copyList);
-        userService.asd({ message: 'text create' }).then((res) => {
-            console.log('res: ', res);
+        const req = {
+            userId: user?.id,
+            message: 'ya1',
+        };
+        userService.createMessage(req).then((res) => {
+            console.log('res123: ', res);
         });
         setLoading(false);
     };
@@ -40,7 +44,16 @@ export default function Profile() {
         userService
             .getAllUser()
             .then((res) => {
-                setUser(res.data[0]);
+                setUser(res.data.at(-1));
+                return res.data.at(-1);
+            })
+            .then((user) => {
+                if (!user) return;
+
+                userService.getMessages(Number(user.id)).then(({ data }) => {
+                    console.log('data: ', data);
+                    setMessageList(data);
+                });
             })
             .finally(() => setLoading(false));
     }, []);
@@ -75,7 +88,7 @@ export default function Profile() {
                 <div>
                     <p>Сообщения:</p>
                     {messageList.length ? (
-                        messageList.map((message, index) => <p key={index}>{message}</p>)
+                        messageList.map((message, index) => <p key={index}>{message.message}</p>)
                     ) : (
                         <p>Нет сообщений</p>
                     )}
