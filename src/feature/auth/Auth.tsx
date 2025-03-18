@@ -44,16 +44,19 @@ export const Auth = () => {
 
     const onClick = () => {
         userService.createUser(userCreds).then(() => {
+            localStorage.setItem('login', userCreds.login);
             router.push(`/profile/${userCreds.login}`);
         });
     };
 
     const login = () => {
         if (!userCreds.login) return;
+        localStorage.setItem('login', userCreds.login);
 
-        // TODO Переделать на Find, а не Get
+        // TODO Переделать на Find, а не Get.
+        // Или здесь сетить данные в стор и потом уже на страницу вытягивать их.
         userService
-            .getUser({ login: userCreds.login })
+            .getUser(userCreds.login)
             .then(() => {
                 router.push(`/profile/${userCreds.login}`);
             })

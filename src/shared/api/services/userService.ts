@@ -1,10 +1,10 @@
 import { instance } from '..';
-import { GetUserRequest, UserDto } from '../dto';
+import { UserDto } from '../dto';
 import { User } from '../types';
 
 export const userService = {
     getAllUser: () => instance.get<User[]>('users'),
-    getUser: ({ login }: GetUserRequest) => instance.get<UserDto>(`users/${login}`),
+    getUser: (login: string) => instance.get<User>(`users/${login}`),
 
     createUser: (user: UserDto) => instance.post<UserDto[]>('users', user),
     createMessage: (mes: any) => instance.post<any>('message', mes),
