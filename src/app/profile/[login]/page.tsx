@@ -1,57 +1,63 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { userService } from 'shared/api/services';
 import '../profilePage.scss';
 import { AvatarOfMe } from '../../../../public/img/avatar';
 import { User } from 'shared/api/types';
+import { useParams } from 'next/navigation';
 
 export default function Profile() {
+    const { login } = useParams<{ login: string }>();
     const [user, setUser] = useState<User>();
+    const [message, setMessage] = useState<string>();
     const [loading, setLoading] = useState(true);
-
     const [messageList, setMessageList] = useState<{ message: string }[]>([]);
+
+    const handleMessage = (e: ChangeEvent<HTMLInputElement>) => {
+        setMessage(e.target.value);
+    };
 
     const createMessage = () => {
         setLoading(true);
 
+        if (!message) return;
+
         const copyList = [...messageList];
-        copyList.push({ message: 'newMessage' });
+        copyList.push({ message });
 
         setMessageList(copyList);
+
         const req = {
             userId: user?.id,
-            message: 'ya1',
+            message: message,
         };
-        userService.createMessage(req).then((res) => {
-            console.log('res123: ', res);
-        });
-        setLoading(false);
+        userService.createMessage(req).then(() => setLoading(false));
     };
 
     const deleteMessage = () => {
         setLoading(true);
 
         const copyList = [...messageList];
+
         copyList.pop();
 
         setMessageList(copyList);
-
         setLoading(false);
     };
 
     useEffect(() => {
         userService
-            .getAllUser()
+            .getUser(login)
             .then((res) => {
-                setUser(res.data.at(-1));
-                return res.data.at(-1);
+                const user = res.data;
+                setUser(user);
+                return user;
             })
             .then((user) => {
                 if (!user) return;
 
                 userService.getMessages(Number(user.id)).then(({ data }) => {
-                    console.log('data: ', data);
                     setMessageList(data);
                 });
             })
@@ -81,7 +87,8 @@ export default function Profile() {
             <div>
                 <p>создание сообщений для разных users</p>
 
-                <input type="text" placeholder="введите текст" />
+                <input placeholder="введите текст" value={message} onChange={handleMessage} />
+
                 <button onClick={createMessage}>создать</button>
                 <button onClick={deleteMessage}>удалить</button>
 

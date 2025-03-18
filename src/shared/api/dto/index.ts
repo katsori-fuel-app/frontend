@@ -1,1 +1,1 @@
-export type { UserDto, GetUserRequest } from './userDto';
+export type * from './userDto';

@@ -2,15 +2,9 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     const path = usePathname();
     const router = useRouter();
-
-    console.log(path);
 
     const logout = () => {
         router.push('/auth');
@@ -18,11 +12,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <header>
-                    {path !== '/auth' && (
-                        <button onClick={logout}>выйти</button>
-                    )}
-                </header>
+                <header>{path !== '/auth' && <button onClick={logout}>выйти</button>}</header>
 
                 <main>{children}</main>
             </body>
