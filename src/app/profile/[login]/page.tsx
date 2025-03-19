@@ -9,10 +9,12 @@ import { useParams } from 'next/navigation';
 
 export default function Profile() {
     const { login } = useParams<{ login: string }>();
+
     const [user, setUser] = useState<User>();
     const [message, setMessage] = useState<string>();
-    const [loading, setLoading] = useState(true);
     const [messageList, setMessageList] = useState<{ message: string }[]>([]);
+
+    const [loading, setLoading] = useState(true);
 
     const handleMessage = (e: ChangeEvent<HTMLInputElement>) => {
         setMessage(e.target.value);
