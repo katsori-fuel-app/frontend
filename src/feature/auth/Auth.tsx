@@ -7,10 +7,12 @@ import { userService } from 'shared/api/services';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Input } from 'shared/uiKit/input';
 import { Button } from 'shared/uiKit/button';
+import { useAuthStore } from 'shared/stores/auth';
 
 export const Auth = () => {
-    const isReg = false;
+    const isReg = true;
     const router = useRouter();
+    const { count, increment } = useAuthStore();
 
     const [userCreds, setUserCreds] = useState({
         email: '',
@@ -74,6 +76,8 @@ export const Auth = () => {
                 <div className="auth__block">
                     <p className="auth__block__title">Регистрация</p>
 
+                    <button onClick={increment}>increment</button>
+                    {count}
                     <div className="form">
                         <Input
                             placeholder="Укажите ваш email"
