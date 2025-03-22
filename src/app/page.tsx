@@ -30,11 +30,7 @@ export default function Home() {
         <div>
             <main>create with next</main>
 
-            <Select
-                options={stringOptions}
-                option={stringOption}
-                onChange={onChangeString}
-            />
+            <Select options={stringOptions} option={stringOption} onChange={onChangeString} />
         </div>
     );
 }
