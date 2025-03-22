@@ -1,73 +1,93 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
-import './auth.scss';
 import { useRouter } from 'next/navigation';
 import { userService } from 'shared/api/services';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Input } from 'shared/uiKit/input';
 import { Button } from 'shared/uiKit/button';
-import { useAuthStore } from 'shared/stores/auth';
+import { useUserStore } from 'shared/stores/user';
+
+import './auth.scss';
+
+const loginFormFieldEnum = {
+    EMAIL: 'email',
+    LOGIN: 'login',
+    PASSWORD: 'password',
+} as const;
+
+type LoginFormFieldEnum = (typeof loginFormFieldEnum)[keyof typeof loginFormFieldEnum];
 
 export const Auth = () => {
-    const isReg = true;
-    const router = useRouter();
-    const { count, increment } = useAuthStore();
+    const isReg = false;
 
+    const router = useRouter();
+    const { fetchUser, setUser } = useUserStore();
+
+    const [error, setError] = useState<string | null>(null);
     const [userCreds, setUserCreds] = useState({
         email: '',
         login: '',
         password: '',
     });
-    const [error, setError] = useState<string | null>(null);
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>, type: 'email' | 'login' | 'password') => {
-        if (type === 'email') {
-            return setUserCreds((prev) => ({
-                ...prev,
-                email: e.target.value,
-            }));
+    const handleAxiosError = (error: AxiosError<AxiosResponse>, type?: string): void => {
+        if (type === 'reg') {
+            // TODO: Сделать обработку всех ошибок при аутентификации.
+            setError(`Ошибка ${error.status}, смотри логи.`);
+            console.warn(error.response?.data);
+            return;
         }
 
-        if (type === 'login') {
-            return setUserCreds((prev) => ({
-                ...prev,
-                login: e.target.value,
-            }));
+        if (error.status === 404) {
+            setError(`Пользователь ${userCreds.login} не существует`);
+            return;
         }
 
-        if (type === 'password') {
-            return setUserCreds((prev) => ({
-                ...prev,
-                password: e.target.value,
-            }));
-        }
+        // TODO: Сделать обработку ошибок других
+        setError(`Ошибка ${error.status}, смотри логи.`);
+        console.warn(error.response?.data);
+    };
+
+    const setLoginInLocalStorage = (login: string) => {
+        localStorage.setItem('login', login);
+    };
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>, type: LoginFormFieldEnum) => {
+        return setUserCreds((prev) => ({
+            ...prev,
+            [type]: e.target.value,
+        }));
     };
 
     const onClick = () => {
-        userService.createUser(userCreds).then(() => {
-            localStorage.setItem('login', userCreds.login);
-            router.push(`/profile/${userCreds.login}`);
-        });
+        if (!userCreds.login) return;
+
+        userService
+            .createUser(userCreds)
+            .then((res) => {
+                const currentUser = res.data;
+                setUser(res.data);
+                setLoginInLocalStorage(currentUser.login);
+
+                return currentUser.login;
+            })
+            .then((currentLogin) => router.push(`/profile/${currentLogin}`))
+            .catch((e: AxiosError<AxiosResponse>) => handleAxiosError(e, 'reg'));
     };
 
-    const login = () => {
+    const login = async () => {
         if (!userCreds.login) return;
-        localStorage.setItem('login', userCreds.login);
 
-        // TODO Переделать на Find, а не Get.
-        // Или здесь сетить данные в стор и потом уже на страницу вытягивать их.
-        userService
-            .getUser(userCreds.login)
-            .then(() => {
-                router.push(`/profile/${userCreds.login}`);
+        fetchUser(userCreds.login)
+            .then((user) => {
+                setUser(user);
+                setLoginInLocalStorage(user.login);
+
+                return user.login;
             })
-            .catch((e: AxiosError<AxiosResponse>) => {
-                if (e.status === 404) {
-                    setError(`Пользователь ${userCreds.login} не существует`);
-                }
-                console.warn(e.response?.data);
-            });
+            .then((login) => router.push(`/profile/${login}`))
+            .catch(handleAxiosError);
     };
 
     return (
@@ -76,24 +96,20 @@ export const Auth = () => {
                 <div className="auth__block">
                     <p className="auth__block__title">Регистрация</p>
 
-                    <button onClick={increment}>increment</button>
-                    {count}
                     <div className="form">
                         <Input
                             placeholder="Укажите ваш email"
-                            onChange={(e) => onChange(e, 'email')}
+                            onChange={(e) => onChange(e, loginFormFieldEnum.EMAIL)}
                         />
+
                         <Input
                             placeholder="Придумайте логин"
-                            onChange={(e) => onChange(e, 'login')}
+                            onChange={(e) => onChange(e, loginFormFieldEnum.LOGIN)}
                         />
+
                         <Input
                             placeholder="Придумайте пароль"
-                            onChange={(e) => onChange(e, 'password')}
-                        />
-                        <Input
-                            placeholder="Подтвердите пароль"
-                            onChange={(e) => onChange(e, 'password')}
+                            onChange={(e) => onChange(e, loginFormFieldEnum.PASSWORD)}
                         />
                     </div>
 
@@ -104,8 +120,16 @@ export const Auth = () => {
                     <p className="auth__block__title">Авторизация</p>
 
                     <div className="form">
-                        <Input placeholder="Логин" onChange={(e) => onChange(e, 'login')} />
-                        <Input placeholder="Пароль" onChange={(e) => onChange(e, 'password')} />
+                        <Input
+                            placeholder="Логин"
+                            onChange={(e) => onChange(e, loginFormFieldEnum.LOGIN)}
+                        />
+
+                        <Input
+                            placeholder="Пароль"
+                            type="password"
+                            onChange={(e) => onChange(e, loginFormFieldEnum.PASSWORD)}
+                        />
 
                         {error && error}
 

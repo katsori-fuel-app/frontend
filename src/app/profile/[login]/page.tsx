@@ -4,17 +4,15 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { userService } from 'shared/api/services';
 import '../profilePage.scss';
 import { AvatarOfMe } from '../../../../public/img/avatar';
-import { User } from 'shared/api/types';
-import { useParams } from 'next/navigation';
+import { useUserStore } from 'shared/stores/user';
 
 export default function Profile() {
-    const { login } = useParams<{ login: string }>();
+    const { user } = useUserStore();
 
-    const [user, setUser] = useState<User>();
     const [message, setMessage] = useState<string>();
     const [messageList, setMessageList] = useState<{ message: string }[]>([]);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const handleMessage = (e: ChangeEvent<HTMLInputElement>) => {
         setMessage(e.target.value);
@@ -49,22 +47,14 @@ export default function Profile() {
     };
 
     useEffect(() => {
-        userService
-            .getUser(login)
-            .then((res) => {
-                const user = res.data;
-                setUser(user);
-                return user;
-            })
-            .then((user) => {
-                if (!user) return;
-
-                userService.getMessages(Number(user.id)).then(({ data }) => {
-                    setMessageList(data);
-                });
-            })
-            .finally(() => setLoading(false));
-    }, []);
+        if (user?.id) {
+            setLoading(true);
+            userService.getMessages(Number(user.id)).then(({ data }) => {
+                setMessageList(data);
+                setLoading(false);
+            });
+        }
+    }, [user?.id]);
 
     if (loading) return <h1>Loading...</h1>;
 
