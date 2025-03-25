@@ -15,6 +15,7 @@ const eslintConfig = [
             'next/core-web-vitals',
             'plugin:@typescript-eslint/recommended',
             'plugin:prettier/recommended',
+            // 'plugin:react-hooks/recommended', // установить нужно по идее npm install eslint-plugin-react-hooks --save-dev
         ],
         settings: {
             next: {
