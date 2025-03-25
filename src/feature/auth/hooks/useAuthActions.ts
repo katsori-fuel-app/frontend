@@ -83,6 +83,5 @@ export const useAuthActions = () => {
         onChange,
         login,
         toRegistration,
-        router,
     };
 };

@@ -1,7 +1,9 @@
+'use client';
 import { Input } from 'shared/uiKit/input';
 import { LoginFormFieldEnum, loginFormFieldEnum } from '../types';
 import { ChangeEvent, FC } from 'react';
 import { Button } from 'shared/uiKit/button';
+import Link from 'next/link';
 
 type RegistrationForm = {
     onChange: (e: ChangeEvent<HTMLInputElement>, type: LoginFormFieldEnum) => void;
@@ -35,7 +37,13 @@ export const RegistrationForm: FC<RegistrationForm> = ({ onChange, onClick, setT
 
             <div>
                 <span>Уже есть аккаунт? Тогда</span>
-                <Button onClick={() => setTab('login')} value="авторизируйтесь" />
+                <button
+                    onClick={() => {
+                        setTab('login');
+                    }}
+                >
+                    авторизируйтесь
+                </button>
             </div>
         </div>
     );
