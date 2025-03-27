@@ -1,3 +1,5 @@
+'use client';
+
 import { usePathname, useRouter } from 'next/navigation';
 import { User } from 'shared/api/types';
 
@@ -19,6 +21,9 @@ export const useRoutesSetting = (user?: User) => {
     const toProfile = () => {
         router.push(`/profile/${user?.login}`);
     };
+    const toFuel = () => {
+        router.push(`/fuel`);
+    };
 
     const routesConfig = [
         {
@@ -29,6 +34,11 @@ export const useRoutesSetting = (user?: User) => {
         {
             value: 'Профиль',
             onClick: toProfile,
+            showButton: Boolean(login),
+        },
+        {
+            value: 'Таблица',
+            onClick: toFuel,
             showButton: Boolean(login),
         },
         {
