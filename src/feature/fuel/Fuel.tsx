@@ -1,32 +1,49 @@
 export const Fuel = () => {
+    const setting = [
+        {
+            date: '12.03.2025',
+            fuelCount: 25.61,
+            currentKm: 168711,
+        },
+        {
+            date: '19.03.2025',
+            fuelCount: 25.61,
+            currentKm: 168933,
+        },
+        {
+            date: '29.03.2025',
+            fuelCount: 25.61,
+            currentKm: 169159,
+        },
+    ];
+
     return (
         <div>
             <div>
-                <div>Количество топлива: 26.06л</div>
-                <div>Дата заправки: 10.03.2025</div>
-                <div>Текущий пробег: 168 000</div>
-                <div>Прошел пробег с последней заправки: 288км</div>
-                <div>Расход: 10л/100км</div>
-            </div>
-            <br />
+                {setting.map((a, i, settingArray) => {
+                    const S =
+                        i === 0
+                            ? settingArray[i].currentKm
+                            : settingArray[i].currentKm - settingArray[i - 1].currentKm;
 
-            <div>
-                <div>Количество топлива: 26.06л</div>
-                <div>Дата заправки: 10.03.2025</div>
-                <div>Текущий пробег: 168 000</div>
-                <div>Прошел пробег с последней заправки: 288км</div>
-                <div>Расход: 10л/100км</div>
+                    const U = i === 0 ? 'нет данных' : (a.fuelCount / S) * 100;
+                    return (
+                        <>
+                            <div>Дата заправки: {a.date}</div>
+                            <div>Количество топлива: {a.fuelCount}л</div>
+                            <div>
+                                Прошел пробег с последней заправки:
+                                {Math.floor(S)}
+                                км
+                            </div>
+                            <div>
+                                Расход топлива: {typeof U === 'number' ? `${Math.floor(U)}л` : U}
+                            </div>
+                            <br />
+                        </>
+                    );
+                })}
             </div>
-            <br />
-
-            <div>
-                <div>Количество топлива: 26.06л</div>
-                <div>Дата заправки: 10.03.2025</div>
-                <div>Текущий пробег: 168 000</div>
-                <div>Прошел пробег с последней заправки: 288км</div>
-                <div>Расход: 10л/100км</div>
-            </div>
-            <br />
         </div>
     );
 };
