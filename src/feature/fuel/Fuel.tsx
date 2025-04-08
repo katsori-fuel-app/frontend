@@ -7,6 +7,7 @@ type Setting = {
     fuelCount: number;
     fuelType: number;
     totalMileage: number;
+    comment?: string;
 }[];
 
 const setting: Setting = [
@@ -27,6 +28,13 @@ const setting: Setting = [
         fuelCount: 25.61,
         fuelType: 95,
         totalMileage: 169159,
+    },
+    {
+        date: '06.04.2025',
+        fuelCount: 25.61,
+        fuelType: 95,
+        totalMileage: 169458,
+        comment: 'машина дёргается после заправки иногда',
     },
 ];
 
@@ -67,22 +75,27 @@ export const Fuel = () => {
     return (
         <div className="fuel">
             <div>
-                {setting.map((a, i, settingArray) => {
+                {setting.map((setting, i, settingArray) => {
                     const consumedMileage = getConsumedMileage(settingArray, i);
-                    const fuelConsumption = getFuelConsumption(a.fuelCount, consumedMileage, i);
+                    const fuelConsumption = getFuelConsumption(
+                        setting.fuelCount,
+                        consumedMileage,
+                        i
+                    );
 
                     return (
                         <div key={i} className="item">
-                            <div>Дата заправки: {a.date}</div>
-                            <div>Количество топлива: {a.fuelCount}л</div>
-                            <div>Тип бензина: {a.fuelType}л</div>
+                            <div>Дата заправки: {setting.date}</div>
+                            <div>Количество топлива: {setting.fuelCount}л</div>
+                            <div>Тип бензина: {setting.fuelType}л</div>
                             <div>
                                 Прошел пробег с последней заправки:
                                 {consumedMileage}
                                 км
                             </div>
                             <div>Расход топлива: {fuelConsumption}/100км</div>
-                            <div>Текущий пробег: {a.totalMileage}</div>
+                            <div>Текущий пробег: {setting.totalMileage}</div>
+                            <div>Комментарий: {setting.comment ?? '-'}</div>
                             <br />
                         </div>
                     );
