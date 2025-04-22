@@ -1,13 +1,20 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { User } from 'shared/api/types';
 
-export const useRoutesSetting = (user?: User) => {
+type HeaderButtons = {
+    value: string;
+    onClick: () => void;
+    showButton: boolean;
+};
+
+export const useRoutesSetting = (user?: User): HeaderButtons[] => {
     const path = usePathname();
     const router = useRouter();
 
-    const login = localStorage.getItem('login');
+    const [stateLogin, setStateLogin] = useState<string | null>(null);
 
     const toMain = () => {
         router.push('/');
@@ -21,6 +28,7 @@ export const useRoutesSetting = (user?: User) => {
     const toProfile = () => {
         router.push(`/profile/${user?.login}`);
     };
+
     const toFuel = () => {
         router.push(`/fuel`);
     };
@@ -34,12 +42,12 @@ export const useRoutesSetting = (user?: User) => {
         {
             value: 'Профиль',
             onClick: toProfile,
-            showButton: Boolean(login),
+            showButton: Boolean(stateLogin),
         },
         {
             value: 'Таблица',
             onClick: toFuel,
-            showButton: Boolean(login),
+            showButton: Boolean(stateLogin),
         },
         {
             value: 'Выйти',
@@ -48,5 +56,24 @@ export const useRoutesSetting = (user?: User) => {
         },
     ];
 
-    return routesConfig;
+    const testRoutes = [
+        {
+            value: 'Главная',
+            onClick: () => router.push('/test-component'),
+            showButton: true,
+        },
+    ];
+
+    useEffect(() => {
+        const login = localStorage.getItem('login');
+        if (login) setStateLogin(login);
+
+        if (!process.env.NEXT_PUBLIC_IS_ONLY_FRONT) return;
+
+        console.warn('Приложение запущено без сервера.');
+    }, [router]);
+
+    const routes = process.env.NEXT_PUBLIC_IS_ONLY_FRONT ? testRoutes : routesConfig;
+
+    return routes;
 };
