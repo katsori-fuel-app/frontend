@@ -1,5 +1,7 @@
+'use client';
+
 import { Fuel } from 'feature/fuel/Fuel';
 
-export default async function FuelPage() {
+export default function FuelPage() {
     return <Fuel />;
 }

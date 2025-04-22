@@ -8,6 +8,11 @@ export const useAuth = () => {
     const { fetchUser, setUser, user } = useUserStore();
 
     useEffect(() => {
+        if (process.env.NEXT_PUBLIC_IS_ONLY_FRONT) {
+            router.push('/test-component');
+            return;
+        }
+
         const login = localStorage.getItem('login');
 
         if (!login) {

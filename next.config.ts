@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 import path from 'path';
 
 const nextConfig: NextConfig = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     experimental: {
         turbo: {
             resolveAlias: {
@@ -13,12 +13,12 @@ const nextConfig: NextConfig = {
         },
     },
     devIndicators: {
-        buildActivity: false, // Отключает индикатор активности сборки
+        buildActivity: false,
     },
-    productionBrowserSourceMaps: false, // Отключает Source Maps для браузера,
+    productionBrowserSourceMaps: false,
     images: {
         remotePatterns: [],
-        unoptimized: true, // Разрешает использовать изображения из папки `public` без дополнительных правил
+        unoptimized: true,
     },
 };
 
