@@ -1,0 +1,16 @@
+.fuel-table-header {
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    padding: 0 10px;
+}
+
+.fuel-row {
+    display: flex;
+    align-items: center;
+    min-height: 30px;
+    border: 1px solid rgba(233, 122, 122, 0.589);
+    margin: 5px 0;
+    padding: 0 10px;
+}
