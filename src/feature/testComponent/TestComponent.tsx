@@ -1,5 +1,11 @@
 'use-client';
 
+import { Fuel } from 'feature/fuel/Fuel';
+
 export const TestComponent = () => {
-    return <h1>lol test</h1>;
+    return (
+        <>
+            <Fuel />
+        </>
+    );
 };
