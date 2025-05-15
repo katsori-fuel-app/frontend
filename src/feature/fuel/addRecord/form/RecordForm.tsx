@@ -1,5 +1,5 @@
 import './recordForm.scss';
-import { FormInput } from './ui';
+import { FormComment, FormInput } from './ui';
 
 export const RecordForm = () => {
     return (
@@ -22,7 +22,7 @@ export const RecordForm = () => {
                 required
             />
 
-            <FormInput label="Комментарий" type="textarea" placeholder="комментарий" />
+            <FormComment label="Комментарий" />
 
             <button className="add-record__button">Создать запись</button>
         </div>
