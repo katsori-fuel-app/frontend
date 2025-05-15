@@ -19,6 +19,7 @@ export const FormComment: FC<FormCommentProps> = ({ label }) => {
         };
 
         textarea.addEventListener('input', handleResize);
+
         return () => {
             if (textarea) {
                 textarea.removeEventListener('input', handleResize);
