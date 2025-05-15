@@ -2,6 +2,7 @@ import { ModalPortal } from 'shared/uiKit/modals/ModalPortal';
 import './addRecord.scss';
 import { useClickOutside, useToggle } from 'shared/hooks';
 import { useRef } from 'react';
+import { RecordForm } from './form';
 
 export const AddRecord = () => {
     const { toggleOn, toggleOff, isToggled } = useToggle();
@@ -12,15 +13,15 @@ export const AddRecord = () => {
 
     return (
         <div>
-            <button className="record-title" onClick={toggleOn}>
+            <button className="add-record__button" onClick={toggleOn}>
                 + Добвить запись
             </button>
 
             {isToggled && (
                 <ModalPortal ref={refPrimary}>
                     <h2>форма добавления записи</h2>
-                    <div>header modal</div>
-                    <div>body modal</div>
+
+                    <RecordForm />
                 </ModalPortal>
             )}
         </div>
