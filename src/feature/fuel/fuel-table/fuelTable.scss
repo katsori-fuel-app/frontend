@@ -10,7 +10,11 @@
     display: flex;
     align-items: center;
     min-height: 30px;
-    border: 1px solid rgba(233, 122, 122, 0.589);
     margin: 5px 0;
     padding: 0 10px;
+
+    &:hover {
+        background-color: rgba(248, 236, 231, 0.507);
+        transition: background-color 0.2s ease;
+    }
 }
