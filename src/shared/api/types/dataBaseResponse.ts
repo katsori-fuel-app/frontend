@@ -1,5 +1,5 @@
 export type DataBaseResponse = {
-    id: string;
+    uuid: string;
     createdAt: Date;
     updatedAt: Date;
 };

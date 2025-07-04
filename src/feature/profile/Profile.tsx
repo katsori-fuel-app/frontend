@@ -31,7 +31,7 @@ export const Profile = () => {
         setMessageList(copyList);
 
         const req = {
-            userId: user?.id,
+            userId: user?.uuid,
             message: message,
         };
         userService.createMessage(req).then(() => setLoading(false));
@@ -49,14 +49,14 @@ export const Profile = () => {
     };
 
     useEffect(() => {
-        if (user?.id) {
+        if (user?.uuid) {
             setLoading(true);
-            userService.getMessages(Number(user.id)).then(({ data }) => {
+            userService.getMessages(Number(user.uuid)).then(({ data }) => {
                 setMessageList(data);
                 setLoading(false);
             });
         }
-    }, [user?.id]);
+    }, [user?.uuid]);
 
     if (loading) return <h1>Loading...</h1>;
 
