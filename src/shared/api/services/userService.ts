@@ -1,15 +1,10 @@
-import { instance } from '..';
+import { fuelWebInstance } from '../dataBaseResponse';
 import { UserDto } from '../dto';
 import { User } from '../types';
 
 export const userService = {
-    getAllUser: () => instance.get<User[]>('users'),
-    getUser: (login: string) => instance.get<User>(`users/${login}`),
+    createUser: (user: UserDto) => fuelWebInstance.post<User>('users', user),
 
-    createUser: (user: UserDto) => instance.post<User>('users', user),
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    createMessage: (mes: any) => instance.post<any>('message', mes),
-    getMessages: (userId: number) =>
-        instance.get<{ message: string }[]>(`message/user?userId=${userId}`),
+    getAllUser: () => fuelWebInstance.get<User[]>('users'),
+    getUser: (login: string) => fuelWebInstance.get<User>(`users/${login}`),
 };
