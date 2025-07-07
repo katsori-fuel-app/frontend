@@ -1,0 +1,1 @@
+export { fuelWebInstance } from './fuelWebInstance';

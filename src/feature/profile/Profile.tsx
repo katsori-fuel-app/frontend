@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, useEffect, useState } from 'react';
-import { userService } from 'shared/api/services';
+import { messageService } from 'shared/api/services';
 import { useUserStore } from 'shared/stores/user';
 import { AvatarOfMe } from '../../../public/img/avatar';
 import { parseDate } from 'shared/utils';
@@ -31,10 +31,10 @@ export const Profile = () => {
         setMessageList(copyList);
 
         const req = {
-            userId: user?.id,
+            userId: user?.uuid,
             message: message,
         };
-        userService.createMessage(req).then(() => setLoading(false));
+        messageService.createMessage(req).then(() => setLoading(false));
     };
 
     const deleteMessage = () => {
@@ -49,14 +49,14 @@ export const Profile = () => {
     };
 
     useEffect(() => {
-        if (user?.id) {
+        if (user?.uuid) {
             setLoading(true);
-            userService.getMessages(Number(user.id)).then(({ data }) => {
+            messageService.getMessages(Number(user.uuid)).then(({ data }) => {
                 setMessageList(data);
                 setLoading(false);
             });
         }
-    }, [user?.id]);
+    }, [user?.uuid]);
 
     if (loading) return <h1>Loading...</h1>;
 
