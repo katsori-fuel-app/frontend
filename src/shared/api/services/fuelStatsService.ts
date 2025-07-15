@@ -1,13 +1,21 @@
+import { FuelStatCreate, FuelStatUpdate } from '../dto';
 import { fuelWebInstance } from '../instances';
+import { FuelStatModel } from '../model/fuelStat';
+
+const FUEL_STAT_PATH = 'fuel-stats';
+
+const GET_RECORDS_PATH = `${FUEL_STAT_PATH}/recordings`;
 
 export const fuelStatsService = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    createRecord: (url: string, data: any) => fuelWebInstance.post(url, data),
+    createRecord: (data: FuelStatCreate) =>
+        fuelWebInstance.post<FuelStatModel>(FUEL_STAT_PATH, data),
 
-    getRecords: () => {},
+    getRecords: (userUuid: string) =>
+        fuelWebInstance.get<FuelStatModel[]>(`${GET_RECORDS_PATH}?userId=${userUuid}`),
     getRecord: () => {},
 
-    updateRecord: () => {},
+    updateRecord: () => (data: FuelStatUpdate) =>
+        fuelWebInstance.post<FuelStatModel>(FUEL_STAT_PATH, data),
 
     deleteRecord: () => {},
 };
