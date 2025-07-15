@@ -1,5 +1,5 @@
-import { fuelWebInstance } from '../dataBaseResponse';
 import { UserDto } from '../dto';
+import { fuelWebInstance } from '../instances';
 import { User } from '../types';
 
 export const userService = {
