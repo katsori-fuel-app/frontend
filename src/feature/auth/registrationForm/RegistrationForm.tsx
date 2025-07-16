@@ -3,7 +3,6 @@ import { Input } from 'shared/uiKit/input';
 import { LoginFormFieldEnum, loginFormFieldEnum } from '../types';
 import { ChangeEvent, FC } from 'react';
 import { Button } from 'shared/uiKit/button';
-import Link from 'next/link';
 
 type RegistrationForm = {
     onChange: (e: ChangeEvent<HTMLInputElement>, type: LoginFormFieldEnum) => void;

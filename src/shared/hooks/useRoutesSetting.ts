@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { User } from 'shared/api/types';
+import { UserModel } from 'shared/api/model';
 
 type HeaderButtons = {
     value: string;
@@ -10,7 +10,7 @@ type HeaderButtons = {
     showButton: boolean;
 };
 
-export const useRoutesSetting = (user?: User): HeaderButtons[] => {
+export const useRoutesSetting = (user?: UserModel): HeaderButtons[] => {
     const path = usePathname();
     const router = useRouter();
 

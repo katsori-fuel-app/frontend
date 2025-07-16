@@ -1,3 +1,3 @@
-export type * from './user.dto';
-export type * from './message.dto';
+export type * from './user';
+export type * from './message';
 export type * from './fuelStat';

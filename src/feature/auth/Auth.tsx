@@ -24,7 +24,7 @@ export const Auth = () => {
             window.history.replaceState(window.history.state, '', `auth?${newParams}`);
             setCurTab(tabName);
         },
-        [searchParams],
+        [searchParams]
     );
 
     return (

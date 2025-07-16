@@ -23,7 +23,7 @@ export const Profile = () => {
     const createMessage = () => {
         setLoading(true);
 
-        if (!message) return;
+        if (!message || !user) return;
 
         const copyList = [...messageList];
         copyList.push({ message });
@@ -31,7 +31,7 @@ export const Profile = () => {
         setMessageList(copyList);
 
         const req = {
-            userId: user?.uuid,
+            userId: user.uuid,
             message: message,
         };
         messageService.createMessage(req).then(() => setLoading(false));
