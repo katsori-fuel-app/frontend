@@ -9,4 +9,8 @@ export const userService = {
 
     getAllUser: () => fuelWebInstance.get<UserModel[]>(ROOT_PATH),
     getUser: (login: string) => fuelWebInstance.get<UserModel>(`${ROOT_PATH}/${login}`),
+
+    updateUser: () => {},
+
+    deleteUser: () => {},
 };
