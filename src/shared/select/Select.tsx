@@ -20,14 +20,12 @@ export const Select = <Key extends string | number>({
         setIsOpenInner((prev) => !prev);
     };
 
-    const onClick =
-        (selectedOption: OptionType<Key>) =>
-        (event: MouseEvent<HTMLDivElement>) => {
-            onChange({
-                event,
-                option: selectedOption,
-            });
-        };
+    const onClick = (selectedOption: OptionType<Key>) => (event: MouseEvent<HTMLDivElement>) => {
+        onChange({
+            event,
+            option: selectedOption,
+        });
+    };
 
     return (
         <div>

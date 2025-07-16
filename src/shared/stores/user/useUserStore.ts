@@ -1,11 +1,11 @@
+import { UserModel } from 'shared/api/model';
 import { userService } from 'shared/api/services';
-import { User } from 'shared/api/types';
 import { create } from 'zustand';
 
 type UserStore = {
-    user?: User;
-    fetchUser: (login: string) => Promise<User>;
-    setUser: (user: User) => void;
+    user?: UserModel;
+    fetchUser: (login: string) => Promise<UserModel>;
+    setUser: (user: UserModel) => void;
 };
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -14,7 +14,7 @@ export const useUserStore = create<UserStore>((set) => ({
 
         return user.data;
     },
-    setUser: (user: User) => {
+    setUser: (user: UserModel) => {
         set({ user });
     },
 }));
