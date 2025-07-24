@@ -1,24 +1,19 @@
-import { fueldMockData } from 'feature/fuel/mock-data/TableData';
+import { FuelRecord } from 'feature/fuel/mock-data/TableData';
 import { CSSProperties } from 'react';
 
-type Setting = {
-    date: string;
-    fuelCount: number;
-    fuelType: number;
-    totalMileage: number;
-    fuelCost: number;
-    comment?: string;
+type Props = {
+    cloumnGrid: CSSProperties;
+    fuelData: FuelRecord[];
 };
-
-export const useFuelTableRows = (cloumnGrid: CSSProperties) => {
-    const fuelRows = fueldMockData.map((fuelRow) => {
+export const useFuelTableRows = ({ cloumnGrid, fuelData }: Props) => {
+    const fuelRows = fuelData.map((fuelRow) => {
         return fuelRow;
     });
 
     /**
      * Получает пройденное расстояние на 1 баке бенза.
      */
-    const getConsumedMileage = (arr: Setting[], i: number): number => {
+    const getConsumedMileage = (arr: FuelRecord[], i: number): number => {
         const consumedMileage =
             i === 0 ? 0 : Math.floor(arr[i].totalMileage - arr[i - 1].totalMileage);
 
