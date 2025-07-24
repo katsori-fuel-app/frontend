@@ -1,6 +1,6 @@
 'use client';
 
-import { useFuelTableColumnsTitle } from './hooks';
+import { useFuelTableColumnsTitle } from '../hooks/useFuelTableColumnsTitle';
 import { useFuelTableRows } from './hooks/useFuelTableRows';
 
 import './fuelTable.scss';

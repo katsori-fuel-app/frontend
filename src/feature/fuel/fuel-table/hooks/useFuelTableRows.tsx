@@ -1,6 +1,4 @@
 import { fueldMockData } from 'feature/fuel/mock-data/TableData';
-
-import '../fuelTable.scss';
 import { CSSProperties } from 'react';
 
 type Setting = {
