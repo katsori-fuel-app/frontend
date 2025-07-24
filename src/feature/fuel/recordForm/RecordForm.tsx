@@ -24,7 +24,7 @@ export const RecordForm = () => {
 
             <FormComment label="Комментарий" />
 
-            <button className="add-record__button">Создать запись</button>
+            <button className="add-button">Создать запись</button>
         </div>
     );
 };

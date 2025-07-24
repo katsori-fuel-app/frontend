@@ -1,22 +1,26 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import './fuelCards.scss';
-import { fueldMockData, FuelMockData } from '../mock-data/TableData';
 import { FuelCard } from './fuelCard';
+import { FC } from 'react';
+import { FuelData } from '../types';
 
-export const FuelCards = () => {
-    const [fuelData, setFuelData] = useState<FuelMockData>([]);
-
-    useEffect(() => {
-        setFuelData(fueldMockData);
-    }, []);
-
+export const FuelCards: FC<FuelData> = ({ fuelData }) => {
     return (
         <div>
             <div className="mobile-fuel-table">
-                {fuelData.map((fuelInfo) => {
-                    return <FuelCard key={fuelInfo.totalMileage} {...fuelInfo} />;
+                {fuelData.map((fuelInfo, i) => {
+                    let prevMileage: number | undefined = undefined;
+                    if (i < fuelData.length - 1)
+                        prevMileage = fuelInfo.totalMileage - fuelData[i + 1].totalMileage;
+
+                    return (
+                        <FuelCard
+                            key={fuelInfo.totalMileage}
+                            info={fuelInfo}
+                            prevMileage={prevMileage}
+                        />
+                    );
                 })}
             </div>
         </div>

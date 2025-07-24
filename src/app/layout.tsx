@@ -3,6 +3,7 @@
 import { Button } from 'shared/uiKit/button';
 import { useAuth, useRoutesSetting } from 'shared/hooks';
 
+import './index.scss';
 import './layout.scss';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

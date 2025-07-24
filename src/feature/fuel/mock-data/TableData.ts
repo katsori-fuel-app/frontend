@@ -1,13 +1,6 @@
-export type FuelMockData = {
-    date: string;
-    fuelCount: number;
-    fuelType: number;
-    totalMileage: number;
-    fuelCost: number;
-    comment?: string;
-}[];
+import { FuelRecord } from '../types';
 
-export const fueldMockData: FuelMockData = [
+export const fueldMockData: FuelRecord[] = [
     {
         date: '12.02.2025',
         fuelCount: 25.67,
@@ -182,6 +175,22 @@ export const fueldMockData: FuelMockData = [
         fuelType: 95,
         totalMileage: 173986,
         fuelCost: 1500,
-        comment: 'возвращаюсь в Тлт залил почти до фула',
+        comment: '',
     },
-];
+    {
+        date: '10.07.2025',
+        fuelCount: 24.78,
+        fuelType: 95,
+        totalMileage: 174270,
+        fuelCost: 1500,
+        comment: 'прогноз ошибся на 16км в большую стотрону',
+    },
+    {
+        date: '18.07.2025',
+        fuelCount: 24.38,
+        fuelType: 95,
+        totalMileage: 174576,
+        fuelCost: 1500,
+        comment: '',
+    },
+].reverse();
