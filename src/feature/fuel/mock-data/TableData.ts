@@ -1,4 +1,4 @@
-type Setting = {
+export type FuelMockData = {
     date: string;
     fuelCount: number;
     fuelType: number;
@@ -7,7 +7,7 @@ type Setting = {
     comment?: string;
 }[];
 
-export const fueldMockData: Setting = [
+export const fueldMockData: FuelMockData = [
     {
         date: '12.02.2025',
         fuelCount: 25.67,
