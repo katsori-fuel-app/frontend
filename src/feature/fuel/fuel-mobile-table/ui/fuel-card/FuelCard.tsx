@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import './fuelCard.scss';
-import { CardRow } from './cardRow';
+import { CardRow } from './card-row';
 import { FuelRecord } from 'feature/fuel/types';
 
 // const nameProp = [
@@ -27,7 +27,6 @@ import { FuelRecord } from 'feature/fuel/types';
 // ];
 
 type Props = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     info: FuelRecord;
     prevMileage: number | undefined;
 };

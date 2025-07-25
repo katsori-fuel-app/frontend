@@ -1,7 +1,7 @@
 'use client';
 
 import './fuelCards.scss';
-import { FuelCard } from './fuelCard';
+import { FuelCard } from './ui/fuel-card';
 import { FC } from 'react';
 import { FuelData } from '../types';
 

@@ -6,10 +6,10 @@ import './fuel.scss';
 import { fueldMockData } from './mock-data/TableData';
 import { useEffect, useRef, useState } from 'react';
 import { phoneWidthMax } from 'shared/utils/constants';
-import { FuelCards } from './fuelMobileTable';
-import { ExpectedRefuel } from './expectedRefuel';
+import { FuelCards } from './fuel-mobile-table';
+import { ExpectedRefuel } from './expected-refuel';
 import { ModalPortal } from 'shared/uiKit/modals/ModalPortal';
-import { RecordForm } from './recordForm';
+import { RecordForm } from './record-form';
 
 export const Fuel = () => {
     const [width] = useWindowSize();
