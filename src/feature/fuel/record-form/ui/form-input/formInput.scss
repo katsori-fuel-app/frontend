@@ -1,8 +1,21 @@
 .form-input {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
     margin-bottom: 8px;
+
+    &__input {
+        width: 100%;
+        height: 32px;
+        padding: 6px 10px;
+
+        border: 2px solid rgba(67, 67, 250, 0.425);
+        border-radius: 8px;
+
+        &:focus {
+            border: 2px solid rgba(51, 51, 219, 0.925);
+        }
+    }
 }
 
 .form-input__required {

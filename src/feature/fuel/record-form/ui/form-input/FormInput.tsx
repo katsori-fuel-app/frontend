@@ -2,7 +2,7 @@ import './formInput.scss';
 
 type FormInputProps = {
     label: string;
-    type: 'date' | 'number' | 'text' | 'textarea'; // todo enam сделать
+    type: 'date' | 'number' | 'text'; // todo enam сделать
     placeholder: string;
     required?: boolean;
 };
@@ -12,13 +12,11 @@ export const FormInput = ({ label, type, placeholder, required = false }: FormIn
         // todo enum заюзать
         switch (type) {
             case 'date':
-                return 'укажите дату';
+                return 'Укажите дату';
             case 'number':
-                return 'введите количество топлива';
+                return 'Введите количество топлива';
             case 'text':
-                return 'введите тип топлива';
-            case 'textarea':
-                return 'комментарий';
+                return 'Введите тип топлива';
             default:
                 return undefined;
         }
@@ -31,7 +29,11 @@ export const FormInput = ({ label, type, placeholder, required = false }: FormIn
                 {required && <span className="form-input__required">*</span>}
             </label>
 
-            <input type={type} placeholder={getPlaceholder() ?? placeholder} />
+            <input
+                className="form-input__input"
+                type={type}
+                placeholder={getPlaceholder() ?? placeholder}
+            />
         </div>
     );
 };
