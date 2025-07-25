@@ -61,9 +61,7 @@ export const Fuel = () => {
 
             {isToggled && (
                 <ModalPortal ref={refPrimary}>
-                    <h2>форма добавления записи</h2>
-
-                    <RecordForm />
+                    <RecordForm title="Добавление записи" closeForm={toggleOff} />
                 </ModalPortal>
             )}
         </div>

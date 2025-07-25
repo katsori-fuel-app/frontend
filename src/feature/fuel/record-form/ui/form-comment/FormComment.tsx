@@ -33,7 +33,11 @@ export const FormComment: FC<FormCommentProps> = ({ label }) => {
                 <span>{label} </span>
             </label>
 
-            <textarea ref={textareaRef} className="form-comment__textarea" />
+            <textarea
+                ref={textareaRef}
+                className="form-comment__textarea"
+                placeholder="Введите текст комментария"
+            />
         </div>
     );
 };
