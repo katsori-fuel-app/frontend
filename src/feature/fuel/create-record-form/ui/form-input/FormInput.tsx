@@ -2,12 +2,19 @@ import './formInput.scss';
 
 type FormInputProps = {
     label: string;
+    value: string;
     type: 'date' | 'number' | 'text'; // todo enam сделать
     placeholder: string;
     required?: boolean;
 };
 
-export const FormInput = ({ label, type, placeholder, required = false }: FormInputProps) => {
+export const FormInput = ({
+    label,
+    value,
+    type,
+    placeholder,
+    required = false,
+}: FormInputProps) => {
     const getPlaceholder = () => {
         // todo enum заюзать
         switch (type) {
@@ -32,6 +39,7 @@ export const FormInput = ({ label, type, placeholder, required = false }: FormIn
             <input
                 className="form-input__input"
                 type={type}
+                value={value}
                 placeholder={getPlaceholder() ?? placeholder}
             />
         </div>

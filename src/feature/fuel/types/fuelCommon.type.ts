@@ -1,7 +1,7 @@
 export type FuelRecord = {
     date: string;
     fuelCount: number;
-    fuelType: number;
+    fuelType: string;
     totalMileage: number;
     fuelCost: number;
     comment?: string;

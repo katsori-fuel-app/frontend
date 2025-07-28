@@ -9,7 +9,7 @@ import { phoneWidthMax } from 'shared/utils/constants';
 import { FuelCards } from './fuel-mobile-table';
 import { ExpectedRefuel } from './expected-refuel';
 import { ModalPortal } from 'shared/uiKit/modals/ModalPortal';
-import { RecordForm } from './record-form';
+import { CreateRecordForm } from './create-record-form';
 
 export const Fuel = () => {
     const [width] = useWindowSize();
@@ -61,7 +61,7 @@ export const Fuel = () => {
 
             {isToggled && (
                 <ModalPortal ref={refPrimary}>
-                    <RecordForm title="Добавление записи" closeForm={toggleOff} />
+                    <CreateRecordForm mode="create" closeForm={toggleOff} />
                 </ModalPortal>
             )}
         </div>
