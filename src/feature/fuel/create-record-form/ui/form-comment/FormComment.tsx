@@ -3,9 +3,10 @@ import './formComment.scss';
 
 type FormCommentProps = {
     label: string;
+    value: string;
 };
 
-export const FormComment: FC<FormCommentProps> = ({ label }) => {
+export const FormComment: FC<FormCommentProps> = ({ label, value }) => {
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     useEffect(() => {
@@ -36,6 +37,7 @@ export const FormComment: FC<FormCommentProps> = ({ label }) => {
             <textarea
                 ref={textareaRef}
                 className="form-comment__textarea"
+                value={value}
                 placeholder="Введите текст комментария"
             />
         </div>
