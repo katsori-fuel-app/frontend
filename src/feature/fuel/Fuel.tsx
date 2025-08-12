@@ -3,7 +3,7 @@
 import { useClickOutside, useToggle, useWindowSize } from 'shared/hooks';
 import { FuelTable } from './fuel-table';
 import './fuel.scss';
-import { fueldMockData } from './mock-data/TableData';
+import { fueldMockData } from '../../mock-data/TableData';
 import { useEffect, useRef, useState } from 'react';
 import { phoneWidthMax } from 'shared/utils/constants';
 import { FuelCards } from './fuel-mobile-table';

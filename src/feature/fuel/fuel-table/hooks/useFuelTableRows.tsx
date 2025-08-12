@@ -1,4 +1,4 @@
-import { FuelRecord } from 'feature/fuel/mock-data/TableData';
+import { FuelRecord } from 'feature/fuel/types';
 import { CSSProperties } from 'react';
 
 type Props = {

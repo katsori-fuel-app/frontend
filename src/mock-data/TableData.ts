@@ -1,52 +1,52 @@
-import { FuelRecord } from '../types';
+import { FuelRecord } from '../feature/fuel/types';
 
 export const fueldMockData: FuelRecord[] = [
     {
         date: '12.02.2025',
         fuelCount: 25.67,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 168075,
         fuelCost: 1500,
     },
     {
         date: '18.02.2025',
         fuelCount: 17.11,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 168250, // в данных было 168 только
         fuelCost: 1000,
     },
     {
         date: '02.03.2025',
         fuelCount: 25.61,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 168447,
         fuelCost: 1523,
     },
     {
         date: '12.03.2025',
         fuelCount: 25.61,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 168711,
         fuelCost: 1523,
     },
     {
         date: '19.03.2025',
         fuelCount: 25.61,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 168933,
         fuelCost: 1500,
     },
     {
         date: '29.03.2025',
         fuelCount: 25.61,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 169159,
         fuelCost: 1500,
     },
     {
         date: '06.04.2025',
         fuelCount: 25.61,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 169438,
         fuelCost: 1500,
         comment: 'машина дёргается после заправки иногда',
@@ -54,21 +54,21 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '11.04.2025',
         fuelCount: 25.51,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 169709,
         fuelCost: 1523,
     },
     {
         date: '19.04.2025',
         fuelCount: 25.39,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 169985,
         fuelCost: 1500,
     },
     {
         date: '26.04.2025',
         fuelCount: 25.39,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 170308,
         fuelCost: 1500,
         comment: 'На 300+км проехал, т.к. меж городами двигался',
@@ -76,14 +76,14 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '03.05.2025',
         fuelCount: 25.51,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 170522,
         fuelCost: 1500,
     },
     {
         date: '09.05.2025',
         fuelCount: 25.22,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 170853,
         fuelCost: 1500,
         comment: 'Снова 300+км, в Гарибальди ездил',
@@ -91,7 +91,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '14.05.2025',
         fuelCount: 25.13,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 171190,
         fuelCost: 1500,
         comment: 'Снова 300+км, под Самару ездил',
@@ -100,7 +100,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '21.05.2025',
         fuelCount: 25.12,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 171486,
         fuelCost: 1500,
         comment: '',
@@ -108,7 +108,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '30.05.2025',
         fuelCount: 25.13,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 171741,
         fuelCost: 1500,
         comment: '',
@@ -116,7 +116,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '05.06.2025',
         fuelCount: 25.05,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 172007,
         fuelCost: 1500,
         comment: '',
@@ -124,7 +124,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '11.06.2025',
         fuelCount: 25.05,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 172347,
         fuelCost: 1500,
         comment: '',
@@ -132,7 +132,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '16.06.2025',
         fuelCount: 25.05,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 172626,
         fuelCost: 1500,
         comment: '',
@@ -140,7 +140,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '24.06.2025',
         fuelCount: 24.97,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 172902,
         fuelCost: 1500,
         comment: '',
@@ -148,7 +148,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '28.06.2025',
         fuelCount: 16.65,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 173020,
         fuelCost: 1000,
         comment: 'перед Казанью влил почти фул',
@@ -156,7 +156,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '28.06.2025',
         fuelCount: 26.09,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 173291,
         fuelCost: 1500,
         comment: 'у реки перед казанью залил полторашку еще',
@@ -164,7 +164,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '29.06.2025',
         fuelCount: 13.03,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 173599,
         fuelCost: 750,
         comment: 'возвращаюсь в Тлт залил почти до фула',
@@ -172,7 +172,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '03.07.2025',
         fuelCount: 24.97,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 173986,
         fuelCost: 1500,
         comment: '',
@@ -180,7 +180,7 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '10.07.2025',
         fuelCount: 24.78,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 174270,
         fuelCost: 1500,
         comment: 'прогноз ошибся на 16км в большую стотрону',
@@ -188,9 +188,33 @@ export const fueldMockData: FuelRecord[] = [
     {
         date: '18.07.2025',
         fuelCount: 24.38,
-        fuelType: 95,
+        fuelType: '95',
         totalMileage: 174576,
         fuelCost: 1500,
         comment: '',
+    },
+    {
+        date: '29.07.2025',
+        fuelCount: 24.26,
+        fuelType: '95',
+        totalMileage: 174843,
+        fuelCost: 1500,
+        comment: '',
+    },
+    {
+        date: '04.08.2025',
+        fuelCount: 24.26,
+        fuelType: '95',
+        totalMileage: 175091,
+        fuelCost: 1500,
+        comment: 'замена краба и троса сцепления',
+    },
+    {
+        date: '12.08.2025',
+        fuelCount: 24.01,
+        fuelType: '95',
+        totalMileage: 175376,
+        fuelCost: 1500,
+        comment: 'думаю над ремонтом телека и подвески, а так же сгонять на развал',
     },
 ].reverse();
