@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import './formInput.scss';
 
 type FormInputProps = {
@@ -5,6 +6,10 @@ type FormInputProps = {
     value: string;
     type: 'date' | 'number' | 'text'; // todo enam сделать
     placeholder: string;
+
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+
+    name?: string;
     required?: boolean;
 };
 
@@ -13,7 +18,11 @@ export const FormInput = ({
     value,
     type,
     placeholder,
+
+    onChange,
+
     required = false,
+    name,
 }: FormInputProps) => {
     const getPlaceholder = () => {
         // todo enum заюзать
@@ -40,7 +49,9 @@ export const FormInput = ({
                 className="form-input__input"
                 type={type}
                 value={value}
+                onChange={onChange}
                 placeholder={getPlaceholder() ?? placeholder}
+                name={name}
             />
         </div>
     );

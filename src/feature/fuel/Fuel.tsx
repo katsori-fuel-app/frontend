@@ -24,7 +24,8 @@ export const Fuel = () => {
         if (width < phoneWidthMax) {
             setIsPhone(true);
         } else {
-            setIsPhone(false);
+            // setIsPhone(false);
+            setIsPhone(true); // пока разрабатываю для мобилки
         }
 
         setIsLoading(false);

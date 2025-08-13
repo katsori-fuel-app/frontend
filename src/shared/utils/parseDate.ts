@@ -1,9 +1,32 @@
+type NormolizeDate = {
+    /**
+     * Дата формата DD.MM.YY
+     */
+    parsedDate: string;
+};
 type InitDate = Date | string;
 type ParseDate = {
     dateFormat: Date;
     stringFormat: string;
 };
 
+export const normolizeDate = ({ parsedDate }: NormolizeDate) => {
+    const [dd, mm, yy] = parsedDate.split('.');
+
+    console.log(parsedDate);
+    const yyyy = '20' + yy;
+
+    const normolizeDate = yy.length === 2 ? `${yyyy}-${mm}-${dd}` : `${yy}-${mm}-${dd}`;
+
+    return {
+        dateFormat: new Date(normolizeDate),
+        stringFormat: normolizeDate,
+    };
+};
+
+/**
+ * Парсит нормализованную дату в дату вида DD.MM.YYYY
+ */
 export const parseDate = (initDate?: InitDate): ParseDate => {
     console.log(`initDate ${initDate}`);
     if (!initDate) {

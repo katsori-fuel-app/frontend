@@ -1,7 +1,8 @@
-import { FC, MouseEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import './createRecordForm.scss';
 import { FormComment, FormInput } from './ui';
 import { FuelRecord } from '../types';
+import { normolizeDate } from 'shared/utils';
 
 const initForm: FuelRecord = {
     date: Date.now().toString(),
@@ -30,22 +31,38 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
         } else {
             return {
                 title: 'Редактирование',
-                submitButton: 'Изменить',
+                submitButton: 'Сохранить',
             };
         }
     };
 
+    const handleForm = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        console.log(value);
+
+        setForm((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const changeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setForm((prev) => ({
+            ...prev,
+            comment: e.target.value,
+        }));
+    };
+
     const onCreate = () => {
-        console.log('create');
+        console.log('create', form);
     };
 
     const onEdit = () => {
-        console.log('edit');
+        console.log('edit', form);
     };
 
-    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
+    const apply = () => {
         if (mode === 'create') {
             onCreate();
         } else {
@@ -55,11 +72,27 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
         closeForm();
     };
 
-    useEffect(() => {
+    const cansel = () => {
         if (data) {
             setForm(data);
         }
-    }, [data]);
+
+        closeForm();
+    };
+
+    useEffect(() => {
+        if (data) {
+            const date = normolizeDate({ parsedDate: data.date }).stringFormat;
+
+            const formattedData = {
+                ...data,
+                date,
+            };
+
+            setForm(formattedData);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>
@@ -77,7 +110,9 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
                     label="Дата"
                     type="date"
                     placeholder="укажите дату"
+                    onChange={handleForm}
                     required
+                    name="date"
                 />
 
                 <FormInput
@@ -86,6 +121,8 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
                     type="number"
                     placeholder="введите количество топлива"
                     required
+                    onChange={handleForm}
+                    name="fuelCount"
                 />
 
                 <FormInput
@@ -94,6 +131,17 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
                     type="text"
                     placeholder="укажите тип топлива"
                     required
+                    onChange={handleForm}
+                    name="fuelType"
+                />
+                <FormInput
+                    value={form.fuelCost.toString()}
+                    label="Стоимость"
+                    type="number"
+                    placeholder="Укажите стоимость заправки"
+                    required
+                    onChange={handleForm}
+                    name="fuelCost"
                 />
 
                 <FormInput
@@ -102,14 +150,26 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
                     type="number"
                     placeholder="введите текущий пробег"
                     required
+                    onChange={handleForm}
+                    name="totalMileage"
                 />
 
-                <FormComment value={form.comment ?? ''} label="Комментарий" />
+                <FormComment
+                    value={form.comment ?? ''}
+                    label="Комментарий"
+                    onChange={changeComment}
+                />
             </div>
 
-            <button className="create-button" onClick={onClick}>
-                {getStatic().submitButton}
-            </button>
+            <div className="actions">
+                <button className="create-button" onClick={apply}>
+                    {getStatic().submitButton}
+                </button>
+
+                <button className="create-button" onClick={cansel}>
+                    Отменить
+                </button>
+            </div>
         </>
     );
 };

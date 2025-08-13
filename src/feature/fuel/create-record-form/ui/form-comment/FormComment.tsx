@@ -1,12 +1,13 @@
-import { FC, useEffect, useRef } from 'react';
+import { ChangeEvent, FC, useEffect, useRef } from 'react';
 import './formComment.scss';
 
 type FormCommentProps = {
     label: string;
     value: string;
+    onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
-export const FormComment: FC<FormCommentProps> = ({ label, value }) => {
+export const FormComment: FC<FormCommentProps> = ({ label, value, onChange }) => {
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     useEffect(() => {
@@ -39,6 +40,7 @@ export const FormComment: FC<FormCommentProps> = ({ label, value }) => {
                 className="form-comment__textarea"
                 value={value}
                 placeholder="Введите текст комментария"
+                onChange={onChange}
             />
         </div>
     );
