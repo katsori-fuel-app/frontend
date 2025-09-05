@@ -11,55 +11,10 @@ import './profilePage.scss';
 export const Profile = () => {
     const { user } = useUserStore();
 
-    const [message, setMessage] = useState<string>();
-    const [messageList, setMessageList] = useState<{ message: string }[]>([]);
-
     const [loading, setLoading] = useState(false);
 
-    const handleMessage = (e: ChangeEvent<HTMLInputElement>) => {
-        setMessage(e.target.value);
-    };
-
-    const createMessage = () => {
-        setLoading(true);
-
-        if (!message || !user) return;
-
-        const copyList = [...messageList];
-        copyList.push({ message });
-
-        setMessageList(copyList);
-
-        const req = {
-            userId: user.uuid,
-            message: message,
-        };
-        messageService.createMessage(req).then(() => setLoading(false));
-    };
-
-    const deleteMessage = () => {
-        setLoading(true);
-
-        const copyList = [...messageList];
-
-        copyList.pop();
-
-        setMessageList(copyList);
-        setLoading(false);
-    };
-
-    useEffect(() => {
-        if (user?.uuid) {
-            setLoading(true);
-            messageService.getMessages(Number(user.uuid)).then(({ data }) => {
-                setMessageList(data);
-                setLoading(false);
-            });
-        }
-    }, [user?.uuid]);
 
     if (loading) return <h1>Loading...</h1>;
-
     if (!user) return <h1>no user...</h1>;
 
     const { stringFormat: createdUserDate } = parseDate(user.createdAt);
@@ -79,21 +34,6 @@ export const Profile = () => {
             </div>
 
             <div>
-                <p>создание сообщений для разных users</p>
-
-                <input placeholder="введите текст" value={message} onChange={handleMessage} />
-
-                <button onClick={createMessage}>создать</button>
-                <button onClick={deleteMessage}>удалить</button>
-
-                <div>
-                    <p>Сообщения:</p>
-                    {messageList.length ? (
-                        messageList.map((message, index) => <p key={index}>{message.message}</p>)
-                    ) : (
-                        <p>Нет сообщений</p>
-                    )}
-                </div>
             </div>
         </div>
     );

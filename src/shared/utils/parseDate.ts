@@ -13,9 +13,7 @@ type ParseDate = {
 export const normolizeDate = ({ parsedDate }: NormolizeDate) => {
     const [dd, mm, yy] = parsedDate.split('.');
 
-    console.log(parsedDate);
     const yyyy = '20' + yy;
-
     const normolizeDate = yy.length === 2 ? `${yyyy}-${mm}-${dd}` : `${yy}-${mm}-${dd}`;
 
     return {
@@ -28,9 +26,9 @@ export const normolizeDate = ({ parsedDate }: NormolizeDate) => {
  * Парсит нормализованную дату в дату вида DD.MM.YYYY
  */
 export const parseDate = (initDate?: InitDate): ParseDate => {
-    console.log(`initDate ${initDate}`);
     if (!initDate) {
         console.warn('Ошибка в fn parseDate: аргумент initDate не передан.');
+
         return {
             dateFormat: new Date(),
             stringFormat: new Date().toDateString(),

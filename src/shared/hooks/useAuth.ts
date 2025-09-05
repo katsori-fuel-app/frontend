@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from 'shared/stores/user';
+import { needUseOnlyMock } from 'shared/utils/constants';
 
 export const useAuth = () => {
     const router = useRouter();
@@ -8,7 +9,7 @@ export const useAuth = () => {
     const { fetchUser, setUser, user } = useUserStore();
 
     useEffect(() => {
-        if (process.env.NEXT_PUBLIC_IS_ONLY_FRONT) {
+        if (process.env.NEXT_PUBLIC_IS_ONLY_FRONT === needUseOnlyMock) {
             router.push('/test-component');
             return;
         }

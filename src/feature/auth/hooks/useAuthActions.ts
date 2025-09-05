@@ -55,9 +55,12 @@ export const useAuthActions = () => {
                 setUser(res.data);
                 setLoginInLocalStorage(currentUser.login);
 
-                return currentUser.login;
+                return currentUser.uuid;
             })
-            .then((currentLogin) => router.push(`/profile/${currentLogin}`))
+            .then((currentLogin) => {
+                console.log(currentLogin)
+                router.push(`/profile/${currentLogin}`)
+            })
             .catch((e: AxiosError<AxiosResponse>) => handleAxiosError(e, 'reg'));
     };
 

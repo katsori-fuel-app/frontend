@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { UserModel } from 'shared/api/model';
+import { needUseOnlyMock } from 'shared/utils/constants';
 
 type HeaderButtons = {
     value: string;
@@ -13,6 +14,8 @@ type HeaderButtons = {
 export const useRoutesSetting = (user?: UserModel): HeaderButtons[] => {
     const path = usePathname();
     const router = useRouter();
+
+    const needUseOnlyFront = process.env.NEXT_PUBLIC_IS_ONLY_FRONT === needUseOnlyMock;
 
     const [stateLogin, setStateLogin] = useState<string | null>(null);
 
@@ -68,12 +71,12 @@ export const useRoutesSetting = (user?: UserModel): HeaderButtons[] => {
         const login = localStorage.getItem('login');
         if (login) setStateLogin(login);
 
-        if (!process.env.NEXT_PUBLIC_IS_ONLY_FRONT) return;
+        if (!needUseOnlyFront) return;
 
         console.warn('Приложение запущено без сервера.');
     }, [router]);
 
-    const routes = process.env.NEXT_PUBLIC_IS_ONLY_FRONT ? testRoutes : routesConfig;
+    const routes = needUseOnlyFront ? testRoutes : routesConfig;
 
     return routes;
 };
