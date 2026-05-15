@@ -1,7 +1,6 @@
 'use client';
 
-import { ChangeEvent, useEffect, useState } from 'react';
-import { messageService } from 'shared/api/services';
+import { useState } from 'react';
 import { useUserStore } from 'shared/stores/user';
 import { AvatarOfMe } from '../../../public/img/avatar';
 import { parseDate } from 'shared/utils';
@@ -11,8 +10,7 @@ import './profilePage.scss';
 export const Profile = () => {
     const { user } = useUserStore();
 
-    const [loading, setLoading] = useState(false);
-
+    const [loading] = useState(false);
 
     if (loading) return <h1>Loading...</h1>;
     if (!user) return <h1>no user...</h1>;
@@ -33,8 +31,7 @@ export const Profile = () => {
                 <p>последннее обновление было: {updatedUserDate}</p>
             </div>
 
-            <div>
-            </div>
+            <div></div>
         </div>
     );
 };

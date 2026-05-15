@@ -58,8 +58,8 @@ export const useAuthActions = () => {
                 return currentUser.uuid;
             })
             .then((currentLogin) => {
-                console.log(currentLogin)
-                router.push(`/profile/${currentLogin}`)
+                console.log(currentLogin);
+                router.push(`/profile/${currentLogin}`);
             })
             .catch((e: AxiosError<AxiosResponse>) => handleAxiosError(e, 'reg'));
     };

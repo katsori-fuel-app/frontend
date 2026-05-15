@@ -74,9 +74,7 @@ export const useRoutesSetting = (user?: UserModel): HeaderButtons[] => {
         if (!needUseOnlyFront) return;
 
         console.warn('Приложение запущено без сервера.');
-    }, [router]);
+    }, [router, needUseOnlyFront]);
 
-    const routes = needUseOnlyFront ? testRoutes : routesConfig;
-
-    return routes;
+    return needUseOnlyFront ? testRoutes : routesConfig;
 };
