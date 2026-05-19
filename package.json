@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev-only": "cross-env NEXT_PUBLIC_IS_ONLY_FRONT=noserver next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -23,6 +24,7 @@
     "@types/react-dom": "19",
     "@typescript-eslint/eslint-plugin": "8.22.0",
     "@typescript-eslint/parser": "8.22.0",
+    "cross-env": "10.1.0",
     "eslint": "9.19.0",
     "eslint-config-next": "15.1.2",
     "eslint-config-prettier": "9.1.0",
