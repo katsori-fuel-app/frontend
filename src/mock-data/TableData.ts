@@ -1,6 +1,6 @@
 import { FuelRecord } from '../feature/fuel/types';
 
-export const fueldMockData: FuelRecord[] = [
+const theFirstFuelData: FuelRecord[] = [
     {
         date: '12.02.2025',
         fuelCount: 25.67,
@@ -217,4 +217,112 @@ export const fueldMockData: FuelRecord[] = [
         fuelCost: 1500,
         comment: 'думаю над ремонтом телека и подвески, а так же сгонять на развал',
     },
-].reverse();
+    {
+        date: '21.08.2025',
+        fuelCount: 23.09,
+        fuelType: '95',
+        totalMileage: 175642,
+        fuelCost: 1500,
+        comment: '',
+    },
+];
+const theSecondFuelData: FuelRecord[] = [
+    {
+        date: '27.08.2025',
+        fuelCount: 22.4,
+        fuelType: '95',
+        totalMileage: 175912,
+        fuelCost: 1500,
+        comment: 'сделал подвеску, накачал шины',
+    },
+    {
+        date: '02.09.2025',
+        fuelCount: 21.75,
+        fuelType: '95',
+        totalMileage: 176168,
+        fuelCost: 1500,
+        comment: '',
+    },
+    {
+        date: '08.09.2025',
+        fuelCount: 21.44,
+        fuelType: '95',
+        totalMileage: 176372,
+        fuelCost: 1500,
+        comment: 'заменил замок зажигания',
+    },
+    {
+        date: '17.09.2025',
+        fuelCount: 21.44,
+        fuelType: '95',
+        totalMileage: 176864,
+        fuelCost: 1500,
+        comment: 'подозрительно большой пробег, возможно 2 заправки посчитал сразу',
+    },
+    {
+        date: '21.09.2025',
+        fuelCount: 21.44,
+        fuelType: '95',
+        totalMileage: 177186,
+        fuelCost: 1500,
+        comment: '',
+    },
+    {
+        date: '29.09.2025',
+        fuelCount: 19.74,
+        fuelType: '95',
+        totalMileage: 177417,
+        fuelCost: 1500,
+        comment: '',
+    },
+    {
+        date: '04.10.2025',
+        fuelCount: 25.65,
+        fuelType: '95',
+        totalMileage: 177620,
+        fuelCost: 2000,
+        comment: 'увеличил количество топлива',
+    },
+    {
+        date: '09.10.2025',
+        fuelCount: 26.95,
+        fuelType: '92',
+        totalMileage: 177979,
+        fuelCost: 2000,
+        comment: 'другой бенз чекаю',
+    },
+    {
+        date: '14.10.2025',
+        fuelCount: 19.24,
+        fuelType: '95',
+        totalMileage: 178322,
+        fuelCost: 1500,
+        comment: 'снова 95 лью',
+    },
+    {
+        date: '19.10.2025',
+        fuelCount: 19.24,
+        fuelType: '95',
+        totalMileage: 178522,
+        fuelCost: 1500,
+        comment: '',
+    },
+    {
+        date: '24.10.2025',
+        fuelCount: 19.24,
+        fuelType: '95',
+        totalMileage: 178692,
+        fuelCost: 1500,
+        comment: '',
+    },
+    {
+        date: '29.10.2025',
+        fuelCount: 19.24,
+        fuelType: '95',
+        totalMileage: 178915,
+        fuelCost: 1500,
+        comment: '',
+    },
+];
+
+export const fuelMockData: FuelRecord[] = [...theFirstFuelData, ...theSecondFuelData].reverse();

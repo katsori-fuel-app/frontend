@@ -2,39 +2,39 @@ import { FuelData } from '../types';
 import './expectedRefuel.scss';
 
 export const ExpectedRefuel = ({ fuelData }: FuelData) => {
-    /** TODO Вынести в util */
-    const forecastedValue: number = fuelData.reduce((acc, fuelRecord, i, settingArray) => {
-        if (i > settingArray.length - 2) {
-            const middle = acc / (settingArray.length - 1);
+    if (fuelData.length < 4) return null;
 
-            return middle;
-        }
+    const recent = fuelData.slice(0, 8);
 
-        const consumedMileage = fuelRecord.totalMileage - settingArray[i + 1].totalMileage;
-        acc += consumedMileage;
+    const intervals = recent
+        .slice(0, -1)
+        .map((cur, i) => {
+            const prev = recent[i + 1];
+            return cur.totalMileage - prev.totalMileage;
+        })
+        .filter((x): x is number => x > 0)
+        .sort((a, b) => a - b);
 
-        return acc;
-    }, 0);
+    if (intervals.length < 3) return null;
 
-    /** TODO Вынести в util */
-    const formattedNumberValue = () => {
-        const last = fuelData[0];
+    /**
+     * ✔ trimmed mean (убираем 1 самый маленький и 1 самый большой)
+     */
+    const trimmed = intervals.slice(1, -1);
 
-        if (last) {
-            const nextFuel = Math.floor(last.totalMileage + forecastedValue);
-            if (nextFuel > 100000) {
-                const arr = nextFuel.toString().split('');
-                const formattedNumber = arr.slice(0, 3).join('') + ' ' + arr.slice(3).join('');
+    const avg = trimmed.reduce((a, b) => a + b, 0) / trimmed.length;
 
-                return formattedNumber;
-            }
-        }
-    };
+    const currentMileage = fuelData[0].totalMileage;
+
+    const nextMileage = Math.round(currentMileage + avg);
+
+    const formatted = nextMileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 
     return (
         <div className="expected-refuel">
-            <span className="expected-refuel__info">Заправка на</span>
-            <span className="expected-refuel__info">{formattedNumberValue()}км</span>
+            <span className="expected-refuel__info">Следующая заправка на</span>
+
+            <span className="expected-refuel__info">{formatted} км</span>
         </div>
     );
 };

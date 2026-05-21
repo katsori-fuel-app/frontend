@@ -3,7 +3,7 @@
 import { useClickOutside, useToggle, useWindowSize } from 'shared/hooks';
 import { FuelTable } from './fuel-table';
 import './fuel.scss';
-import { fueldMockData } from '../../mock-data/TableData';
+import { fuelMockData } from '../../mock-data/TableData';
 import { useEffect, useRef, useState } from 'react';
 import { phoneWidthMax } from 'shared/utils/constants';
 import { FuelCards } from './fuel-mobile-table';
@@ -44,19 +44,19 @@ export const Fuel = () => {
         <div className="fuel">
             {isPhone ? (
                 <>
-                    <ExpectedRefuel fuelData={fueldMockData} />
+                    <ExpectedRefuel fuelData={fuelMockData} />
                     <button className="add-btn" onClick={toggleOn}>
                         Добвить запись
                     </button>
-                    <FuelCards fuelData={fueldMockData} />
+                    <FuelCards fuelData={fuelMockData} />
                 </>
             ) : (
                 <>
                     <button className="add-btn" onClick={toggleOn}>
                         Добвить запись
                     </button>
-                    <FuelTable fuelData={fueldMockData} />
-                    <ExpectedRefuel fuelData={fueldMockData} />
+                    <FuelTable fuelData={fuelMockData} />
+                    <ExpectedRefuel fuelData={fuelMockData} />
                 </>
             )}
 
