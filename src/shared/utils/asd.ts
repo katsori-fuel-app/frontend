@@ -34,12 +34,6 @@ export const calcConfidence = ({ partialRefuels, daysSinceFullRefuel, currentCon
     return Math.max(CONFIDENCE.MIN, currentConfidence - totalDiff);
 };
 
-const firstEstimate = () => {
-    const maxLitersOfCar = 50;
-    const currentRashodLiters = 8;
-    const currentMilageKm = 188550;
-}
-
 const sendNextRefuel = () => {
     const fuelType = '95';
     const fuelCount = 23.5
@@ -69,8 +63,39 @@ const sendNextRefuel = () => {
 // эта штука уже лежит внутри рефуел хистори
 
 // MODELS
-// transport: данные о баке, пробеге начальном/конечном, название, расход топлива, доки какие нить и т.д
+// + transport: данные о баке, пробеге начальном/конечном, название, расход топлива, доки какие нить и т.д
+
 // refuels: состоит из общих полей и массив истории
 // - общие поля включают: последня калибровка - дата, медиана - объект с меданами,
 // - массив включает, дата, количество залитого, цена за рефуел, доверие, расход высчитанный,
 // кол топлива посчитанное, тип заправки - фул не фул можно булевкой можно инамкой,
+
+const firstCalibrationDate = () => {
+    // transport is Model in DB
+    const transport = {
+        maxLitersOfCar: 50,
+        currentRashodLiters: 8,
+        currentMilageKm: null,
+        initMilageKm: 188550,
+        carModel: 'Tesla Model 3',
+        docs: null,
+    };
+
+    // todo
+    const initRefuel = {
+        type: '_INIT',
+        confedience: [{
+            date: '12-12-12',
+            value: 100,
+            change: 0,
+        }],
+        liters: 0,
+
+    }
+
+    const sendRec = (ts: object) => {
+        // ....code
+    }
+
+    sendRec(transport); // api to backend
+}
