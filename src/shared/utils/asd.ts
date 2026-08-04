@@ -84,14 +84,20 @@ const firstCalibrationDate = () => {
     // todo
     const initRefuel = {
         type: '_INIT',
-        confedience: [{
-            date: '12-12-12',
-            value: 100,
-            change: 0,
-        }],
+        confedience: [
+            {
+                date: '12-12-12',
+                value: 100,
+                change: 0,
+            },
+        ],
         liters: 0,
-
-    }
+        medians: {
+            highMedianHistory: [0, 0, 0], // вроде даты уже есть, а вроде можно сюда внести тож
+            middleMedianHistory: [0, 0, 0],
+            finallyMedian: 0,
+        },
+    };
 
     const sendRec = (ts: object) => {
         // ....code
