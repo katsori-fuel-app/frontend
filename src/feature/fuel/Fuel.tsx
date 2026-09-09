@@ -9,11 +9,13 @@ import { phoneWidthMax } from 'shared/utils/constants';
 import { FuelCards } from './fuel-mobile-table';
 import { ExpectedRefuel } from './expected-refuel';
 import { ModalPortal } from 'shared/uiKit/modals/ModalPortal';
-import { CreateRecordForm } from './create-record-form';
+import { CreateRecordForm } from './shared/create-record-form';
 
 export const Fuel = () => {
     const [width] = useWindowSize();
+
     const { toggleOn, toggleOff, isToggled } = useToggle();
+
     const refPrimary = useRef<HTMLDivElement>(null);
 
     /** TODO Вынести в hook определение мобилки глобально, т.к. это по всему проекту чекануть нужно, а не локально */
@@ -62,7 +64,7 @@ export const Fuel = () => {
 
             {isToggled && (
                 <ModalPortal ref={refPrimary}>
-                    <CreateRecordForm mode="create" closeForm={toggleOff} />
+                    <CreateRecordForm mode="regular" closeForm={toggleOff} />
                 </ModalPortal>
             )}
         </div>

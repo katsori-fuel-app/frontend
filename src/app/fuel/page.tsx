@@ -1,7 +1,12 @@
 'use client';
 
 import { Fuel } from 'feature/fuel/Fuel';
+import { FirstRefuel } from 'feature/fuel/ui/first-refuel/FirstRefuel';
 
 export default function FuelPage() {
-    return <Fuel />;
+    const isFirstRefuel = true;
+
+    return (
+        isFirstRefuel ? <FirstRefuel /> : <Fuel />
+    );
 }

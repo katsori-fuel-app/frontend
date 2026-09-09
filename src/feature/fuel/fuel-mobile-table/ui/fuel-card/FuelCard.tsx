@@ -4,7 +4,7 @@ import { CardRow } from './card-row';
 import { FuelRecord } from 'feature/fuel/types';
 import { ModalPortal } from 'shared/uiKit/modals/ModalPortal';
 import { useClickOutside, useToggle } from 'shared/hooks';
-import { CreateRecordForm } from 'feature/fuel/create-record-form';
+import { CreateRecordForm } from 'feature/fuel/shared/create-record-form';
 
 // const nameProp = [
 //     {
