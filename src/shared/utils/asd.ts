@@ -65,43 +65,93 @@ const sendNextRefuel = () => {
 // MODELS
 // + transport: данные о баке, пробеге начальном/конечном, название, расход топлива, доки какие нить и т.д
 
-// refuels: состоит из общих полей и массив истории
-// - общие поля включают: последня калибровка - дата, медиана - объект с меданами,
-// - массив включает, дата, количество залитого, цена за рефуел, доверие, расход высчитанный,
-// кол топлива посчитанное, тип заправки - фул не фул можно булевкой можно инамкой,
 
 const firstCalibrationDate = () => {
-    // transport is Model in DB
+    /**
+     * Транспорт в отдельной таблице.
+     *
+     * Расширения для показа прошлого владельца и его данных не будет.
+     * Если нужно будет расширять, то приложуха будет делаться с нуля, учитывая возможные масштабирования.
+     * Текущая версия очень маленькая, без масштаба в будущем.
+     */
     const transport = {
         maxLitersOfCar: 50,
         currentRashodLiters: 8,
-        currentMilageKm: null,
+        currentMilageKm: 188550,
         initMilageKm: 188550,
-        carModel: 'Tesla Model 3',
+        name: 'Lada Kalina',
         docs: null,
+        ownershipSince: '01-01-2022',
+        ownershipEnd: '01-01-2029',
     };
 
-    // todo
-    const initRefuel = {
-        type: '_INIT',
-        confedience: [
-            {
-                date: '12-12-12',
-                value: 100,
-                change: 0,
-            },
-        ],
-        liters: 0,
-        medians: {
-            highMedianHistory: [0, 0, 0], // вроде даты уже есть, а вроде можно сюда внести тож
-            middleMedianHistory: [0, 0, 0],
-            finallyMedian: 0,
+    /**
+     * Медана в отдельной таблице.
+     *
+     * Берём литраж каждый заправки, а через 7 дней сетим медиану в medianHistory.
+     * За год получаем 48 (4х12) значений, кабуто можно спокойно лет 10 хранить это.
+     */
+    const medians = {
+        medianHistory: [],
+        finallyMedian: 0,
+    };
+
+    /**
+     * Доверие/точность в отдельной таблице.
+     *
+     * Падает до своей фиксированной точки и больше не изменяется.
+     * Если заправляться с низкой точность, то она не будет меняться.
+     * Обновляетяс до 100 процентов каждую full refuel.
+     */
+    const confidence = [
+        {
+            date: '12-12-12',
+            value: 100,
+            change: 0,
         },
+    ];
+
+    const refuelSendData = {
+        data: '22-11-2026',
+        /**
+         * Калибровка - это самый первый ввод данных. Может быть только 1 раз.
+         * Рекалибровка - можно вызваться, чтобы сбросить все показатели. Отменить нельзя.
+         * Частичная заправка.
+         * Полная заправка минимум раз в 2 мес.
+         */
+        type: 'REFUEL', // 'CALIBRATION', 'RECALIBRATION', 'REFUEL', 'FULL'
+        isFull: false,
+        fuel: {
+            type: '95',
+            addLiters: 23,
+        },
+        price: 2032, // cost/price or smth else
+        mileage: 188850,
+        comment: 'try another fuel station.',
+    };
+
+    const nextRefuelBackendAnswerData = {
+        ...refuelSendData,
+        fuel: {
+            ...refuelSendData.fuel,
+            currentLiters: 41,
+        },
+        id: 1,
+        mileage: {
+            rashod: {
+                // calc by backend
+                onMileage: 100,
+                fuelCount: 8.53,
+            },
+            nextRefuel: 189250,
+        },
+        confidence: 99, // из таблицы будет тянуть
+        medianRefuel: 23, // из таблицы будет тянуть
     };
 
     const sendRec = (ts: object) => {
-        // ....code
-    }
+        /**....code*/
+    };
 
     sendRec(transport); // api to backend
-}
+};
