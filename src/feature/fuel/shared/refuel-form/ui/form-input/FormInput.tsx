@@ -4,11 +4,10 @@ import './formInput.scss';
 type FormInputProps = {
     label: string;
     value: string;
-    type: 'date' | 'number' | 'text'; // todo enam сделать
-    placeholder: string;
-
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 
+    type?: 'date' | 'number' | 'text'; // todo enam сделать
+    placeholder?: string;
     name?: string;
     required?: boolean;
 };
@@ -16,7 +15,7 @@ type FormInputProps = {
 export const FormInput = ({
     label,
     value,
-    type,
+    type = 'text',
     placeholder,
 
     onChange,
@@ -24,20 +23,6 @@ export const FormInput = ({
     required = false,
     name,
 }: FormInputProps) => {
-    const getPlaceholder = () => {
-        // todo enum заюзать
-        switch (type) {
-            case 'date':
-                return 'Укажите дату';
-            case 'number':
-                return 'Введите количество топлива';
-            case 'text':
-                return 'Введите тип топлива';
-            default:
-                return undefined;
-        }
-    };
-
     return (
         <div className="form-input">
             <label htmlFor="date">
@@ -50,7 +35,7 @@ export const FormInput = ({
                 type={type}
                 value={value}
                 onChange={onChange}
-                placeholder={getPlaceholder() ?? placeholder}
+                placeholder={placeholder}
                 name={name}
             />
         </div>

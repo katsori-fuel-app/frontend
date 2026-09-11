@@ -1,11 +1,11 @@
-import { CreateRecordForm } from 'feature/fuel/shared/create-record-form';
+import { RefuelForm } from 'feature/fuel/shared/refuel-form';
 
 export const FirstRefuel = () => {
     return (
         <div>
             <h2>Заправь полный бак лол </h2>
 
-            <CreateRecordForm mode="init" />
+            <RefuelForm mode="init" />
         </div>
     );
 };

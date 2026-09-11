@@ -1,10 +1,10 @@
 import { FC, useRef, useState } from 'react';
 import './fuelCard.scss';
 import { CardRow } from './card-row';
-import { FuelRecord } from 'feature/fuel/types';
+import { RefuelFormType } from 'feature/fuel/types';
 import { ModalPortal } from 'shared/uiKit/modals/ModalPortal';
 import { useClickOutside, useToggle } from 'shared/hooks';
-import { CreateRecordForm } from 'feature/fuel/shared/create-record-form';
+import { RefuelForm } from 'feature/fuel/shared/refuel-form';
 
 // const nameProp = [
 //     {
@@ -30,7 +30,7 @@ import { CreateRecordForm } from 'feature/fuel/shared/create-record-form';
 // ];
 
 type Props = {
-    info: FuelRecord;
+    info: RefuelFormType;
     prevMileage: number | undefined;
 };
 
@@ -87,7 +87,7 @@ export const FuelCard: FC<Props> = ({ info, prevMileage }) => {
 
             {isToggled && (
                 <ModalPortal>
-                    <CreateRecordForm mode="edit" data={info} closeForm={toggleOff} />
+                    <RefuelForm mode="edit" data={info} closeForm={toggleOff} />
                 </ModalPortal>
             )}
         </>
