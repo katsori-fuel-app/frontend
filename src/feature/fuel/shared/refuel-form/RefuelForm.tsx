@@ -1,37 +1,19 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
-import './createRecordForm.scss';
+import './refuelForm.scss';
 import { FormComment, FormInput } from './ui';
-import { FuelRecord } from '../../types';
 import { normolizeDate } from 'shared/utils';
+import { RefuelProps } from 'feature/fuel/shared/refuel-form/types';
+import { REFUEL_MODE } from 'feature/fuel/shared/refuel-form/constants';
+import { RefuelFormType } from 'feature/fuel/types';
+import { refuelInitialForm } from 'feature/fuel/shared/refuel-form/utils/refuelInitialForm';
 
-// Confidence will be calculated in the backend.
-const initForm: FuelRecord = {
-    date: Date.now().toString(),
-    totalMileage: 0,
-    fuelCost: 0,
-    fuelType: '95',
-    fuelCount: 0,
-    fuelConsumption: 8,
-    fuelTankCapacity: 50,
-    comment: '',
-};
+export const RefuelForm: FC<RefuelProps> = ({ mode, data, closeForm }) => {
+    const [form, setForm] = useState<RefuelFormType>(refuelInitialForm(mode));
 
-// здесь еще типа будет calibration или чот такое для калибровки
-type Props = {
-    mode: 'init' | 'regular' | 'edit';
+    const isFirstRefuel = mode === REFUEL_MODE.INIT;
 
-    closeForm?: () => void;
-    data?: FuelRecord;
-};
-
-export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
-    const [form, setForm] = useState<FuelRecord>(initForm);
-
-    const isFirstRefuel = mode === 'init';
-
-    // TODO it possible edit isn't correct inside CreateForm lol. Or you should rename component.
     const getStatic = () => {
-        if (mode === 'edit') {
+        if (mode === REFUEL_MODE.EDIT) {
             return {
                 title: 'Редактирование',
                 submitButton: 'Сохранить',
@@ -64,7 +46,6 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
         isFirstRefuel
             ? console.info('create init form', form)
             : console.info('create regular form', form);
-
     };
 
     const onEdit = async () => {
@@ -72,10 +53,10 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
     };
 
     const apply = async () => {
-        if (mode === 'edit') {
+        if (mode === REFUEL_MODE.EDIT) {
             await onEdit();
         } else {
-            await onCreate()
+            await onCreate();
         }
 
         closeForm?.();
@@ -87,7 +68,7 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
         closeForm?.();
     };
 
-    const {title, submitButton} = getStatic();
+    const { title, submitButton } = getStatic();
 
     useEffect(() => {
         if (data) {
@@ -106,20 +87,30 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
 
     return (
         <>
-            <div className="create-record-form__title">
-                <h2 className="create-record-form__title__text">{title}</h2>
+            <div className="refuel-form__title">
+                <h2 className="refuel-form__title__text">{title}</h2>
 
-                <button className="create-record-form__title__close-btn" onClick={closeForm}>
+                <button className="refuel-form__title__close-btn" onClick={closeForm}>
                     x
                 </button>
             </div>
 
-            <div className="create-record-form__fields">
+            <div className="refuel-form__fields">
+                {/* тут радиобатон должен быть или селект или чот для выбора значения */}
+                <FormInput
+                    value={form.mode}
+                    label="Тип заправки"
+                    placeholder="Укажите тип заправки"
+                    onChange={handleForm}
+                    required
+                    name="mode"
+                />
+
                 <FormInput
                     value={form.date}
                     label="Дата"
                     type="date"
-                    placeholder="укажите дату"
+                    placeholder="Укажите дату"
                     onChange={handleForm}
                     required
                     name="date"
@@ -129,7 +120,7 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
                     value={form.fuelCount.toString()}
                     label="Количество топлива"
                     type="number"
-                    placeholder="введите количество топлива"
+                    placeholder="Введите количество топлива"
                     required
                     onChange={handleForm}
                     name="fuelCount"
@@ -139,7 +130,7 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
                     value={form.fuelType}
                     label="Тип топлива"
                     type="text"
-                    placeholder="укажите тип топлива"
+                    placeholder="Укажите тип топлива"
                     required
                     onChange={handleForm}
                     name="fuelType"
@@ -159,32 +150,32 @@ export const CreateRecordForm: FC<Props> = ({ mode, data, closeForm }) => {
                     value={form.totalMileage.toString()}
                     label="Текущий пробег"
                     type="number"
-                    placeholder="введите текущий пробег"
+                    placeholder="Введите текущий пробег"
                     required
                     onChange={handleForm}
                     name="totalMileage"
                 />
 
-                {isFirstRefuel && (
+                {form.mode === REFUEL_MODE.INIT && (
                     <>
                         <FormInput
                             value={form.fuelTankCapacity.toString()}
                             label="Объем бака"
                             type="number"
-                            placeholder="введите объем бака"
+                            placeholder="Введите объем бака"
                             required
                             onChange={handleForm}
                             name="fuelTankCapacity"
                         />
 
                         <FormInput
-                            value={form.fuelConsumption.toString()}
+                            value={form.initFuelConsumption.toString()}
                             label="Текущий расход"
                             type="number"
-                            placeholder="введите расход топлива"
+                            placeholder="Введите расход топлива"
                             required
                             onChange={handleForm}
-                            name="fuelConsumption"
+                            name="initFuelConsumption"
                         />
                     </>
                 )}

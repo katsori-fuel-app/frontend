@@ -1,9 +1,6 @@
-type FirstRefuelForm = {
-    fuelTankCapacity: number;
-    fuelConsumption: number;
-};
+import { REFUEL_MODE } from 'feature/fuel/shared/refuel-form/constants';
 
-export type FuelRecord = {
+type CommonRefuelField = {
     date: string;
     totalMileage: number;
     fuelCount: number;
@@ -11,8 +8,30 @@ export type FuelRecord = {
     fuelCost: number;
 
     comment?: string;
-} & FirstRefuelForm;
+};
+
+type FirstRefuelForm = {
+    mode: typeof REFUEL_MODE.INIT;
+    fuelTankCapacity: number;
+    initFuelConsumption: number;
+} & CommonRefuelField;
+
+type EditRefuelForm = {
+    mode: typeof REFUEL_MODE.EDIT;
+} & CommonRefuelField;
+
+type RegularRefuelForm = {
+    mode: typeof REFUEL_MODE.REGULAR;
+} & CommonRefuelField;
+
+/** TODO next feature. */
+// type CalibrationRefuelForm = {
+//     mode: 'calibration';
+// } & CommonRefuelField;
+
+export type RefuelMode = (typeof REFUEL_MODE)[keyof typeof REFUEL_MODE];
+export type RefuelFormType = FirstRefuelForm | RegularRefuelForm | EditRefuelForm;
 
 export type FuelData = {
-    fuelData: FuelRecord[];
+    fuelData: RefuelFormType[];
 };
