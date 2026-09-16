@@ -11,6 +11,7 @@ type CalcConfidenceType = {
     currentConfidence: number;
 };
 
+// это же на бэке считать должно потом, в целом дропнуть можно
 export const getConfidenceEstimate = (months: number, confidence: number) => {
     if (months < MAX_DAYS_WITHOUT_FULL_REFUEL && confidence > CONFIDENCE.WARNING) return;
 
@@ -21,6 +22,7 @@ export const getConfidenceEstimate = (months: number, confidence: number) => {
     }
 };
 
+// это тож бэк считать будет
 export const calcConfidence = ({ partialRefuels, daysSinceFullRefuel, currentConfidence}: CalcConfidenceType): number => {
     if (currentConfidence < CONFIDENCE.MIN) return CONFIDENCE.MIN;
 

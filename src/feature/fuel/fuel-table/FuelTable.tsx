@@ -1,14 +1,13 @@
 'use client';
 
-import { useFuelTableColumnsTitle } from '../hooks/useFuelTableColumnsTitle';
+import { useFuelTableColumnsTitle } from 'feature/fuel/hooks';
 import { useFuelTableRows } from './hooks/useFuelTableRows';
 
 import './fuelTable.scss';
 import { getColumnGrid } from './utils';
-import { FC } from 'react';
 import { FuelData } from '../types';
 
-export const FuelTable: FC<FuelData> = ({ fuelData }) => {
+export const FuelTable = (fuelData: FuelData['fuelData']) => {
     const columnsTitle = useFuelTableColumnsTitle();
 
     const columnNames = columnsTitle.map((column) => column.columnName);

@@ -3,24 +3,24 @@
 import { useClickOutside, useToggle, useWindowSize } from 'shared/hooks';
 import { FuelTable } from './fuel-table';
 import './fuel.scss';
-import { fuelMockData } from '../../mock-data/TableData';
 import { useEffect, useRef, useState } from 'react';
 import { phoneWidthMax } from 'shared/utils/constants';
 import { FuelCards } from './fuel-mobile-table';
 import { ExpectedRefuel } from './expected-refuel';
 import { ModalPortal } from 'shared/uiKit/modals/ModalPortal';
 import { RefuelForm } from './shared/refuel-form';
+import { mockedFuelData } from '../../mock-data/TableData';
 
 export const Fuel = () => {
     const [width] = useWindowSize();
-
     const { toggleOn, toggleOff, isToggled } = useToggle();
 
     const refPrimary = useRef<HTMLDivElement>(null);
 
     /** TODO Вынести в hook определение мобилки глобально, т.к. это по всему проекту чекануть нужно, а не локально */
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
+    const { expectedRefuelDistance, expectedRefuelDays, fuelData } = mockedFuelData;
 
     useEffect(() => {
         if (width < phoneWidthMax) {
@@ -32,6 +32,12 @@ export const Fuel = () => {
 
         setIsLoading(false);
     }, [width]);
+
+    // request for FuelData will be here
+    useEffect(() => {
+        setIsLoading(true);
+        setTimeout(() => setIsLoading(false), 500);
+    }, []);
 
     useClickOutside({ refPrimary, handler: toggleOff });
 
@@ -46,11 +52,13 @@ export const Fuel = () => {
         <div className="fuel">
             {isPhone ? (
                 <>
-                    <ExpectedRefuel fuelData={fuelMockData} />
+                    <ExpectedRefuel days={expectedRefuelDays} distance={expectedRefuelDistance} />
+
                     <button className="add-btn" onClick={toggleOn}>
                         Добвить запись
                     </button>
-                    <FuelCards fuelData={fuelMockData} />
+
+                    <FuelCards {...fuelData} />
                 </>
             ) : (
                 <>
@@ -58,8 +66,9 @@ export const Fuel = () => {
                         Добвить запись
                     </button>
 
-                    <FuelTable fuelData={fuelMockData} />
-                    <ExpectedRefuel fuelData={fuelMockData} />
+                    <FuelTable {...fuelData} />
+
+                    <ExpectedRefuel days={expectedRefuelDays} distance={expectedRefuelDistance} />
                 </>
             )}
 

@@ -2,10 +2,9 @@
 
 import './fuelCards.scss';
 import { FuelCard } from './ui/fuel-card';
-import { FC } from 'react';
 import { FuelData } from '../types';
 
-export const FuelCards: FC<FuelData> = ({ fuelData }) => {
+export const FuelCards = (fuelData: FuelData['fuelData']) => {
     return (
         <div>
             <div className="mobile-fuel-table">
