@@ -32,6 +32,9 @@ type RegularRefuelForm = {
 export type RefuelMode = (typeof REFUEL_MODE)[keyof typeof REFUEL_MODE];
 export type RefuelFormType = FirstRefuelForm | RegularRefuelForm | EditRefuelForm;
 
+// TODO need to rename. This is general data, not just fuelTable.
 export type FuelData = {
     fuelData: RefuelFormType[];
+    expectedRefuelDistance: number;
+    expectedRefuelDays: number;
 };

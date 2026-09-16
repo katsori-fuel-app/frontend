@@ -2,29 +2,19 @@ import { ChangeEvent, FC, useEffect, useState } from 'react';
 import './refuelForm.scss';
 import { FormComment, FormInput } from './ui';
 import { normolizeDate } from 'shared/utils';
-import { RefuelProps } from 'feature/fuel/shared/refuel-form/types';
-import { REFUEL_MODE } from 'feature/fuel/shared/refuel-form/constants';
-import { RefuelFormType } from 'feature/fuel/types';
-import { refuelInitialForm } from 'feature/fuel/shared/refuel-form/utils/refuelInitialForm';
+import { REFUEL_MODE } from './constants';
+import { RefuelFormType, RefuelMode } from 'feature/fuel/types';
+import { getRefuelFormStatic, refuelInitialForm } from './utils';
+
+type RefuelProps = {
+    mode: RefuelMode;
+
+    closeForm?: () => void;
+    data?: RefuelFormType;
+};
 
 export const RefuelForm: FC<RefuelProps> = ({ mode, data, closeForm }) => {
     const [form, setForm] = useState<RefuelFormType>(refuelInitialForm(mode));
-
-    const isFirstRefuel = mode === REFUEL_MODE.INIT;
-
-    const getStatic = () => {
-        if (mode === REFUEL_MODE.EDIT) {
-            return {
-                title: 'Редактирование',
-                submitButton: 'Сохранить',
-            };
-        }
-
-        return {
-            title: 'Добавление записи',
-            submitButton: 'Добавить',
-        };
-    };
 
     const handleForm = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -43,7 +33,7 @@ export const RefuelForm: FC<RefuelProps> = ({ mode, data, closeForm }) => {
     };
 
     const onCreate = async () => {
-        isFirstRefuel
+        mode === REFUEL_MODE.INIT
             ? console.info('create init form', form)
             : console.info('create regular form', form);
     };
@@ -68,20 +58,19 @@ export const RefuelForm: FC<RefuelProps> = ({ mode, data, closeForm }) => {
         closeForm?.();
     };
 
-    const { title, submitButton } = getStatic();
+    const { title, submitButton } = getRefuelFormStatic(mode);
 
     useEffect(() => {
-        if (data) {
-            const date = normolizeDate({ parsedDate: data.date }).stringFormat;
+        if (!data) return;
 
-            // TODO data.date? What is it lol
-            const formattedData = {
-                ...data,
-                date,
-            };
+        const date = normolizeDate({ parsedDate: data.date }).stringFormat;
+        const formattedData = {
+            ...data,
+            date,
+        };
 
-            setForm(formattedData);
-        }
+        setForm(formattedData);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
