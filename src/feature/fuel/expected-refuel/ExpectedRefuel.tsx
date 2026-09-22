@@ -1,12 +1,11 @@
-import { FuelData } from '../types';
-import './expectedRefuel.scss';
+import './nextRefuel.scss';
 
 type ExpectedRefuelType = {
     distance: number;
     days: number;
 }
 
-export const ExpectedRefuel = ({ distance, days }: ExpectedRefuelType) => {
+export const NextRefuel = ({ distance, days }: ExpectedRefuelType) => {
     return (
         <div className="expected-refuel">
             <span className="expected-refuel__info">Следующая заправка примерно через</span>

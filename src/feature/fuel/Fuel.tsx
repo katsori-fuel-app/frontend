@@ -6,7 +6,7 @@ import './fuel.scss';
 import { useEffect, useRef, useState } from 'react';
 import { phoneWidthMax } from 'shared/utils/constants';
 import { FuelCards } from './fuel-mobile-table';
-import { ExpectedRefuel } from './expected-refuel';
+import { NextRefuel } from './next-refuel';
 import { ModalPortal } from 'shared/uiKit/modals/ModalPortal';
 import { RefuelForm } from './shared/refuel-form';
 import { mockedFuelData } from '../../mock-data/TableData';
@@ -52,7 +52,7 @@ export const Fuel = () => {
         <div className="fuel">
             {isPhone ? (
                 <>
-                    <ExpectedRefuel days={expectedRefuelDays} distance={expectedRefuelDistance} />
+                    <NextRefuel days={expectedRefuelDays} distance={expectedRefuelDistance} />
 
                     <button className="add-btn" onClick={toggleOn}>
                         Добвить запись
@@ -62,13 +62,13 @@ export const Fuel = () => {
                 </>
             ) : (
                 <>
+                    <NextRefuel days={expectedRefuelDays} distance={expectedRefuelDistance} />
+
                     <button className="add-btn" onClick={toggleOn}>
                         Добвить запись
                     </button>
 
                     <FuelTable {...fuelData} />
-
-                    <ExpectedRefuel days={expectedRefuelDays} distance={expectedRefuelDistance} />
                 </>
             )}
 
