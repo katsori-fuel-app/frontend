@@ -3,9 +3,9 @@ import { FormComment, FormInput } from './ui';
 import { REFUEL_MODE } from './constants';
 import { RefuelFormType, RefuelMode } from 'feature/fuel/types';
 import { getRefuelFormStatic } from './utils';
-import { RadioButton } from 'shared/uiKit';
 import { useRefuelFormActions } from 'feature/fuel/shared/refuel-form/hooks/useRefuelFormActions';
 import { useRefuelForm } from 'feature/fuel/shared/refuel-form/hooks/useRefuelForm';
+import { ModeFormChanger } from './ui/mode-form-changer/ModeFormChanger';
 
 type PropsType = {
     mode: RefuelMode;
@@ -36,22 +36,10 @@ export const RefuelForm = ({ mode, data, closeForm }: PropsType) => {
                 </button>
             </div>
 
-            {/* TODO task #89 */}
             <div className="refuel-form__fields">
-                {[
-                    { label: 'Первая заправка', value: REFUEL_MODE.INIT },
-                    { label: 'Обычная заправка', value: REFUEL_MODE.REGULAR },
-                    { label: 'Калибровка', value: REFUEL_MODE.CALIBRATION },
-                ].map(({ label, value }) => (
-                    <RadioButton
-                        key={value}
-                        label={label}
-                        name="mode"
-                        value={value}
-                        checked={form.mode === value}
-                        onChange={handleForm}
-                    />
-                ))}
+                {(form.mode === REFUEL_MODE.REGULAR || form.mode === REFUEL_MODE.CALIBRATION) && (
+                    <ModeFormChanger mode={form.mode} handleForm={handleForm} />
+                )}
 
                 <FormInput
                     value={form.date}
