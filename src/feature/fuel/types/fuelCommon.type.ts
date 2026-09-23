@@ -24,13 +24,12 @@ type RegularRefuelForm = {
     mode: typeof REFUEL_MODE.REGULAR;
 } & CommonRefuelField;
 
-/** TODO next feature. */
-// type CalibrationRefuelForm = {
-//     mode: 'calibration';
-// } & CommonRefuelField;
+type CalibrationRefuelForm = {
+    mode: typeof REFUEL_MODE.CALIBRATION;
+} & CommonRefuelField;
 
 export type RefuelMode = (typeof REFUEL_MODE)[keyof typeof REFUEL_MODE];
-export type RefuelFormType = FirstRefuelForm | RegularRefuelForm | EditRefuelForm;
+export type RefuelFormType = FirstRefuelForm | RegularRefuelForm | EditRefuelForm | CalibrationRefuelForm;
 
 // TODO need to rename. This is general data, not just fuelTable.
 export type FuelData = {

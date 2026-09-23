@@ -1,99 +1,57 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
 import './refuelForm.scss';
 import { FormComment, FormInput } from './ui';
-import { normolizeDate } from 'shared/utils';
 import { REFUEL_MODE } from './constants';
 import { RefuelFormType, RefuelMode } from 'feature/fuel/types';
-import { getRefuelFormStatic, refuelInitialForm } from './utils';
+import { getRefuelFormStatic } from './utils';
+import { RadioButton } from 'shared/uiKit';
+import { useRefuelFormActions } from 'feature/fuel/shared/refuel-form/hooks/useRefuelFormActions';
+import { useRefuelForm } from 'feature/fuel/shared/refuel-form/hooks/useRefuelForm';
 
-type RefuelProps = {
+type PropsType = {
     mode: RefuelMode;
 
-    closeForm?: () => void;
     data?: RefuelFormType;
+    closeForm?: () => void;
 };
 
-export const RefuelForm: FC<RefuelProps> = ({ mode, data, closeForm }) => {
-    const [form, setForm] = useState<RefuelFormType>(refuelInitialForm(mode));
+const bakCount = 50;
 
-    const handleForm = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-
-        setForm((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    const changeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setForm((prev) => ({
-            ...prev,
-            comment: e.target.value,
-        }));
-    };
-
-    const onCreate = async () => {
-        mode === REFUEL_MODE.INIT
-            ? console.info('create init form', form)
-            : console.info('create regular form', form);
-    };
-
-    const onEdit = async () => {
-        console.log('edit', form);
-    };
-
-    const apply = async () => {
-        if (mode === REFUEL_MODE.EDIT) {
-            await onEdit();
-        } else {
-            await onCreate();
-        }
-
-        closeForm?.();
-    };
-
-    const cansel = () => {
-        if (data) setForm(data);
-
-        closeForm?.();
-    };
+export const RefuelForm = ({ mode, data, closeForm }: PropsType) => {
+    const { form, handleForm, changeComment, cansel } = useRefuelForm({ mode, data, closeForm });
+    const { apply } = useRefuelFormActions({ form, closeForm });
 
     const { title, submitButton } = getRefuelFormStatic(mode);
 
-    useEffect(() => {
-        if (!data) return;
-
-        const date = normolizeDate({ parsedDate: data.date }).stringFormat;
-        const formattedData = {
-            ...data,
-            date,
-        };
-
-        setForm(formattedData);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
         <>
+            {/* TODO decompose that */}
             <div className="refuel-form__title">
                 <h2 className="refuel-form__title__text">{title}</h2>
+                {form.mode === REFUEL_MODE.CALIBRATION && (
+                    <p className="refuel-form__title__calibration">Ваш объём бака {bakCount}</p>
+                )}
 
-                <button className="refuel-form__title__close-btn" onClick={closeForm}>
+                <button className="refuel-form__title__close-btn" onClick={cansel}>
                     x
                 </button>
             </div>
 
+            {/* TODO task #89 */}
             <div className="refuel-form__fields">
-                {/* тут радиобатон должен быть или селект или чот для выбора значения */}
-                <FormInput
-                    value={form.mode}
-                    label="Тип заправки"
-                    placeholder="Укажите тип заправки"
-                    onChange={handleForm}
-                    required
-                    name="mode"
-                />
+                {[
+                    { label: 'Первая заправка', value: REFUEL_MODE.INIT },
+                    { label: 'Обычная заправка', value: REFUEL_MODE.REGULAR },
+                    { label: 'Калибровка', value: REFUEL_MODE.CALIBRATION },
+                ].map(({ label, value }) => (
+                    <RadioButton
+                        key={value}
+                        label={label}
+                        name="mode"
+                        value={value}
+                        checked={form.mode === value}
+                        onChange={handleForm}
+                    />
+                ))}
 
                 <FormInput
                     value={form.date}
@@ -105,15 +63,17 @@ export const RefuelForm: FC<RefuelProps> = ({ mode, data, closeForm }) => {
                     name="date"
                 />
 
-                <FormInput
-                    value={form.fuelCount.toString()}
-                    label="Количество топлива"
-                    type="number"
-                    placeholder="Введите количество топлива"
-                    required
-                    onChange={handleForm}
-                    name="fuelCount"
-                />
+                {form.mode !== REFUEL_MODE.CALIBRATION && (
+                    <FormInput
+                        value={form.fuelCount.toString()}
+                        label="Количество топлива"
+                        type="number"
+                        placeholder="Введите количество топлива"
+                        required
+                        onChange={handleForm}
+                        name="fuelCount"
+                    />
+                )}
 
                 <FormInput
                     value={form.fuelType}

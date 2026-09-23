@@ -11,14 +11,20 @@ export const getRefuelFormStatic = (mode: RefuelMode) => {
         }
         case REFUEL_MODE.EDIT: {
             return {
-                title: 'Редактирование',
+                title: 'Редактирование.',
                 submitButton: 'Сохранить',
             };
         }
         case REFUEL_MODE.REGULAR: {
             return {
-                title: 'Добавление записи',
+                title: 'Добавление записи.',
                 submitButton: 'Добавить',
+            };
+        }
+        case REFUEL_MODE.CALIBRATION: {
+            return {
+                title: 'Актуализируйте данные. Проведите калибровку.',
+                submitButton: 'Сохранить',
             };
         }
         default: {
