@@ -16,4 +16,23 @@ if ! printf '%s\n' "$branch" | grep -Eq '^(feature|fix)/[a-z]+(-[a-z]+)*/[0-9]+$
   exit 1
 fi
 
-pnpm exec commitlint --edit "$1"
+subject=$(sed -n '1p' "$1")
+prefix="$branch: "
+
+case "$subject" in
+  "$prefix"*)
+    summary=${subject#"$prefix"}
+    ;;
+  *)
+    echo "Invalid commit subject: $subject"
+    echo "Expected format: $branch: <description>"
+    echo "Example: $branch: add pre-commit hook"
+    exit 1
+    ;;
+esac
+
+if [ -z "$(printf '%s' "$summary" | tr -d '[:space:]')" ]; then
+  echo "Commit description must not be empty."
+  echo "Expected format: $branch: <description>"
+  exit 1
+fi
