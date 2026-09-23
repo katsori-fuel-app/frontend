@@ -20,14 +20,22 @@ export const refuelInitialForm = (mode: RefuelMode): RefuelFormType => {
                 fuelTankCapacity: 50,
                 initFuelConsumption: 8,
             };
-
         case REFUEL_MODE.EDIT:
             return {
                 ...commonFields,
                 mode: REFUEL_MODE.EDIT,
             };
-
         case REFUEL_MODE.REGULAR:
+            return {
+                ...commonFields,
+                mode: REFUEL_MODE.REGULAR,
+            };
+        case REFUEL_MODE.CALIBRATION:
+            return {
+                ...commonFields,
+                mode: REFUEL_MODE.CALIBRATION,
+            };
+        default:
             return {
                 ...commonFields,
                 mode: REFUEL_MODE.REGULAR,

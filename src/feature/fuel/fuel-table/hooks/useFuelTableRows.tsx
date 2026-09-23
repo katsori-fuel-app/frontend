@@ -1,9 +1,9 @@
-import { FuelRecord } from 'feature/fuel/types';
+import { FuelData } from 'feature/fuel/types';
 import { CSSProperties } from 'react';
 
 type Props = {
     cloumnGrid: CSSProperties;
-    fuelData: FuelRecord[];
+    fuelData: FuelData['fuelData'];
 };
 export const useFuelTableRows = ({ cloumnGrid, fuelData }: Props) => {
     const fuelRows = fuelData.map((fuelRow) => {
@@ -13,7 +13,7 @@ export const useFuelTableRows = ({ cloumnGrid, fuelData }: Props) => {
     /**
      * Получает пройденное расстояние на 1 баке бенза.
      */
-    const getConsumedMileage = (arr: FuelRecord[], i: number): number => {
+    const getConsumedMileage = (arr: FuelData['fuelData'], i: number): number => {
         const consumedMileage =
             i === 0 ? 0 : Math.floor(arr[i].totalMileage - arr[i - 1].totalMileage);
 
