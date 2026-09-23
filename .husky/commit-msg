@@ -1,0 +1,19 @@
+branch="$(git branch --show-current)"
+
+case "$branch" in
+  main|develop)
+    exit 0
+    ;;
+esac
+
+if ! printf '%s\n' "$branch" | grep -Eq '^(feature|fix)/[a-z]+(-[a-z]+)*/[0-9]+$'; then
+  echo "Invalid branch name: $branch"
+  echo "Expected format: <type>/<branch-description>/<number>"
+  echo "Allowed types: feature, fix"
+  echo "Examples:"
+  echo "  feature/add-login-form/00"
+  echo "  fix/handle-empty-response/12"
+  exit 1
+fi
+
+pnpm exec commitlint --edit "$1"
