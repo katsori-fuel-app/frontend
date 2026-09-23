@@ -63,17 +63,15 @@ export const RefuelForm = ({ mode, data, closeForm }: PropsType) => {
                     name="date"
                 />
 
-                {form.mode !== REFUEL_MODE.CALIBRATION && (
-                    <FormInput
-                        value={form.fuelCount.toString()}
-                        label="Количество топлива"
-                        type="number"
-                        placeholder="Введите количество топлива"
-                        required
-                        onChange={handleForm}
-                        name="fuelCount"
-                    />
-                )}
+                <FormInput
+                    value={form.fuelCount.toString()}
+                    label="Количество топлива"
+                    type="number"
+                    placeholder="Введите количество топлива"
+                    required
+                    onChange={handleForm}
+                    name="fuelCount"
+                />
 
                 <FormInput
                     value={form.fuelType}
