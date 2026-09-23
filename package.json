@@ -1,37 +1,39 @@
 {
-    "name": "fuel-app",
-    "version": "0.1.0",
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "next dev --turbopack",
-        "dev-only": "cross-env NEXT_PUBLIC_IS_ONLY_FRONT=noserver next dev --turbopack",
-        "dev-new-back": "cross-env NEXT_PUBLIC_IS_REMOTE_BACK=remote next dev --turbopack",
-        "build": "next build",
-        "start": "next start",
-        "lint": "eslint ."
-    },
-    "dependencies": {
-        "axios": "1.19.0",
-        "next": "16.2.6",
-        "react": "19.0.0",
-        "react-dom": "19.0.0",
-        "zustand": "5.0.3"
-    },
-    "devDependencies": {
-        "@eslint/eslintrc": "3",
-        "@types/node": "20",
-        "@types/react": "19",
-        "@types/react-dom": "19",
-        "@typescript-eslint/eslint-plugin": "8.22.0",
-        "@typescript-eslint/parser": "8.22.0",
-        "cross-env": "10.1.0",
-        "eslint": "9.19.0",
-        "eslint-config-next": "15.1.2",
-        "eslint-config-prettier": "9.1.0",
-        "eslint-plugin-prettier": "5.2.3",
-        "prettier": "3.4.2",
-        "sass": "1.83.0",
-        "typescript": "6.0.3"
-    }
+  "name": "fuel-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "dev-only": "cross-env NEXT_PUBLIC_IS_ONLY_FRONT=noserver next dev --turbopack",
+    "dev-new-back": "cross-env NEXT_PUBLIC_IS_REMOTE_BACK=remote next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "axios": "1.19.0",
+    "next": "16.2.6",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "zustand": "5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3",
+    "@types/node": "20",
+    "@types/react": "19",
+    "@types/react-dom": "19",
+    "@typescript-eslint/eslint-plugin": "8.22.0",
+    "@typescript-eslint/parser": "8.22.0",
+    "cross-env": "10.1.0",
+    "eslint": "9.19.0",
+    "eslint-config-next": "15.1.2",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "5.2.3",
+    "husky": "^9.1.7",
+    "prettier": "3.4.2",
+    "sass": "1.83.0",
+    "typescript": "6.0.3"
+  }
 }
