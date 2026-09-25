@@ -62,7 +62,7 @@ export const Fuel = () => {
                         Добвить запись
                     </button>
 
-                    <FuelCards {...fuelData} />
+                    <FuelCards fuelData={fuelData} />
                 </>
             ) : (
                 <>
@@ -72,7 +72,7 @@ export const Fuel = () => {
                         Добвить запись
                     </button>
 
-                    <FuelTable {...fuelData} />
+                    <FuelTable fuelData={fuelData} />
                 </>
             )}
 

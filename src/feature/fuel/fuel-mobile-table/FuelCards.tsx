@@ -4,7 +4,11 @@ import './fuelCards.scss';
 import { FuelCard } from './ui/fuel-card';
 import { FuelData } from '../types';
 
-export const FuelCards = (fuelData: FuelData['fuelData']) => {
+type FuelCardsProps = {
+    fuelData: FuelData['fuelData'];
+};
+
+export const FuelCards = ({ fuelData }: FuelCardsProps) => {
     return (
         <div>
             <div className="mobile-fuel-table">

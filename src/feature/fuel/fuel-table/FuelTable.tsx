@@ -7,7 +7,11 @@ import './fuelTable.scss';
 import { getColumnGrid } from './utils';
 import { FuelData } from '../types';
 
-export const FuelTable = (fuelData: FuelData['fuelData']) => {
+type FuelTableProps = {
+    fuelData: FuelData['fuelData'];
+};
+
+export const FuelTable = ({ fuelData }: FuelTableProps) => {
     const columnsTitle = useFuelTableColumnsTitle();
 
     const columnNames = columnsTitle.map((column) => column.columnName);
